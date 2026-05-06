@@ -1,0 +1,28 @@
+*{
+    padding:0;
+    margin:0;
+    box-sizing:border-box;
+
+}
+
+.navbar{
+    background-image:url("/static/images/guitar.avif");
+    background-size:cover;
+    background-repeat:no-repeat;
+    background-position:center;
+    height:700px;
+}
+
+.navbar div{
+    height:100%;
+    display:flex;
+    justify-content:right;
+    align-items:center;
+    font-size:70px;
+    color:#fff;
+}
+
+.hero h3{
+    max-width:700px;
+    text-align:center;
+}
