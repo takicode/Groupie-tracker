@@ -14,13 +14,13 @@ func main(){
 
 
   // Routes
-  http.HandleFunc("/", groupie.HomeHandler)
+ http.HandleFunc("/", groupie.HomeHandler)
 
  log.Println("Server listening on port 8080")
  err:= http.ListenAndServe(":8080", nil)
   if err != nil{
-      log.Fatal(err)
-    }
+    log.Fatal(err)
+  }
 }
 
 
