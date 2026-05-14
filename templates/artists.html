@@ -1,0 +1,50 @@
+<!Doctype html>
+  <html>
+    <head>
+        <link rel="stylesheet" href="/static/artists.css"/>
+        <title>Groupie-tracker</title>
+    </head>
+
+    <body>
+        <header>
+
+        </header>
+        <section class="hero">
+            {{range .}}
+
+<div class="card">
+    <img src="{{.Image}}" alt="{{.Name}}">
+
+    <h2>{{.Name}}</h2>
+
+    <p>Formed: {{.CreationDate}}</p>
+
+    <p>First Album: {{.FirstAlbum}}</p>
+
+    <h3>Members</h3>
+    <ul>
+        {{range .Members}}
+            <li>{{.}}</li>
+        {{end}}
+    </ul>
+
+    <h3>Concerts</h3>
+    <ul>
+        {{range $location, $dates := .DateLocations}}
+            <li>
+                {{$location}}
+                <ul>
+                    {{range $dates}}
+                        <li>{{.}}</li>
+                    {{end}}
+                </ul>
+            </li>
+        {{end}}
+    </ul>
+</div>
+
+{{end}}
+        </section>
+    </body>
+  </html>
+

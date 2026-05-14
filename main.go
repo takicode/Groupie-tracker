@@ -15,6 +15,7 @@ func main(){
 
   // Routes
  http.HandleFunc("/", groupie.HomeHandler)
+ http.HandleFunc("/artists", groupie.ArtistHandler)
 
  log.Println("Server listening on port 8080")
  err:= http.ListenAndServe(":8080", nil)
