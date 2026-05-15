@@ -1,7 +1,5 @@
 package api
 
-
-
 // Artist Struct
 type Artist struct{
   Id      int     `json:"id"`

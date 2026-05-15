@@ -4,11 +4,10 @@ import (
   "fmt"
   "net/http"
   "encoding/json"
-  "strings"
   "log"
 )
 
-func AllArtist (){
+func AllArtist ()[]FullArtistInfo{
   artists, err :=getArtists()
   if err != nil {
     log.Fatal("failed to get artists:", err)
@@ -42,16 +41,10 @@ func AllArtist (){
     }
     artistsInfo = append(artistsInfo, info)
   }
+  
+  log.Println(artistsInfo)
 
-  for _, info := range artistsInfo{
-      fmt.Printf("artist:%s\n", info.Name)
-
-      for place, loc := range info.DateLocations{
-        fmt.Println(" ", place, "=>", loc)
-      }
-      fmt.Println(strings.Repeat("=",20))
-  }
-
+  return artistsInfo
 }
 
 
