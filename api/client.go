@@ -41,8 +41,6 @@ func AllArtist ()[]FullArtistInfo{
     }
     artistsInfo = append(artistsInfo, info)
   }
-  
-  log.Println(artistsInfo)
 
   return artistsInfo
 }
