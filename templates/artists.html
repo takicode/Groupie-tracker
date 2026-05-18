@@ -1,50 +1,52 @@
-<!Doctype html>
-  <html>
+<!DOCTYPE html>
+<html lang="en">
     <head>
+         <meta charset="UTF-8">
+         <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="/static/artists.css"/>
-        <title>Groupie-tracker</title>
+        <title>artists page</title>
     </head>
-
     <body>
-        <header>
-
-        </header>
+        <nav >
+           <div class="navbar">
+             <a class="logo">Groupie <span class="tracker">tracker</span></a>
+            <ul class="links">
+                <li><a href="#artists">artists</a></li>
+                <li><a href="#tour">tour</a></li>
+                <li><a href="#location">location</a></li>
+               
+            </ul>
+            <div>
+                <a>About</a>
+            </div>
+           </div>
+        </nav>
         <section class="hero">
-            {{range .}}
-
-<div class="card">
-    <img src="{{.Image}}" alt="{{.Name}}">
-
-    <h2>{{.Name}}</h2>
-
-    <p>Formed: {{.CreationDate}}</p>
-
-    <p>First Album: {{.FirstAlbum}}</p>
-
-    <h3>Members</h3>
-    <ul>
-        {{range .Members}}
-            <li>{{.}}</li>
-        {{end}}
-    </ul>
-
-    <h3>Concerts</h3>
-    <ul>
-        {{range $location, $dates := .DateLocations}}
-            <li>
-                {{$location}}
-                <ul>
-                    {{range $dates}}
-                        <li>{{.}}</li>
-                    {{end}}
-                </ul>
-            </li>
-        {{end}}
-    </ul>
-</div>
-
-{{end}}
+            <div class="hero-text">
+                <h1>Every band. <br>Every <span class="tracker">sound.</span></h1>
+                <p>Browse artists trace their tours across the globe, and dive deep into the <br>music that <span class="tracker">shaped generations.</span></p>
+            </div>
+            <div class="hero-image">
+                <img src="/static/images/compass.svg" class="hero-banner">
+            </div>
         </section>
+        <article>
+            <!-- find an artist -->
+        </article>
+        <main>
+            <div class="list">
+                <h3>The artists</h3>
+                <p>Showing 1-6 of 18  ·  Page 1 of 3</p>
+            </div>
+            
+            <div class="artist-grid">
+                {{range .}}
+                <div class="grid-card">
+                    <img src={{.Image}} alt={{.Name}} class="artist-image">
+                    <div>{{.Name}}</div>
+                </div>
+                {{end}}
+            </div>
+        </main>
     </body>
-  </html>
-
+</html>
