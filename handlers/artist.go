@@ -20,10 +20,10 @@ func ArtistHandler(w http.ResponseWriter, r *http.Request){
 	}
 
 	artists := api.AllArtist()
-    // log.Println(artists)
+
 	err := templ.ExecuteTemplate(w, "artists.html", artists)
 	if err != nil{
-			log.Println("Error executing artist template:", err)
+			// log.Println("Error executing artist template:", err)
 			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
 		}
 }
