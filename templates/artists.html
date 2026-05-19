@@ -35,18 +35,29 @@
         </article>
         <main>
             <div class="list">
-                <h3>The artists</h3>
-                <p>Showing 1-6 of 18  ·  Page 1 of 3</p>
+                <h3>{{.TotalArtists}} artists</h3>
+                <p>Page {{.PageNo}} of {{.TotalPages}}</p>
             </div>
             
             <div class="artist-grid">
-                {{range .}}
+                {{range .Artists}}
                 <div class="grid-card">
                     <img src={{.Image}} alt={{.Name}} class="artist-image">
-                    <div>{{.Name}}</div>
+                    <p>{{.Name}}</p>
+                    <p>Est. {{.CreationDate}} </p>
                 </div>
                 {{end}}
             </div>
         </main>
+        <div class="pagination">
+            <div class="pages">
+                <a href="/artists?page={{.PrevPage}}" class="page">Prev</a>
+                {{range .Pages}}
+                <a href="/artists?page={{.}}" class="page">{{.}}</a> 
+                {{end}}
+                <a href="/artists?page={{.NextPage}}" class="page">Next</a>
+            </div>
+        </div>
     </body>
 </html>
+
