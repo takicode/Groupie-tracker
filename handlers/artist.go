@@ -6,8 +6,6 @@ import (
 )
 
 
-
-
 func ArtistHandler(w http.ResponseWriter, r *http.Request){
 	if r.Method != http.MethodGet{
 		w.WriteHeader(http.StatusNotFound)
@@ -18,9 +16,8 @@ func ArtistHandler(w http.ResponseWriter, r *http.Request){
 		return
 	}
 
-	displayInfo := Pagination(w, r)
+	displayInfo := FilterArtist(w, r)
 
-	
 	err := templ.ExecuteTemplate(w, "artists.html", displayInfo)
 	if err != nil{
 			log.Println("Error executing artist template:", err)
