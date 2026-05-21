@@ -7,20 +7,21 @@ import (
   "log"
 )
 
-func AllArtist ()[]FullArtistInfo{
-  artists, err :=getArtists()
+var artistsInfo []FullArtistInfo
+
+func LoadData()error{
+    artists, err :=getArtists()
   if err != nil {
-    log.Fatal("failed to get artists:", err)
+    return nil
   }
 
   relations, err := getRelations()
   if err != nil {
-    log.Fatal("failed to get relations:", err)
+    return nil
   }
 
   relMap := make(map[int]Relation)
 
-  var artistsInfo []FullArtistInfo
 
   for _, rel := range relations{
     relMap[rel.Id] = rel
@@ -42,6 +43,9 @@ func AllArtist ()[]FullArtistInfo{
     artistsInfo = append(artistsInfo, info)
   }
 
+  return nil
+}
+func AllArtist ()[]FullArtistInfo{
   return artistsInfo
 }
 

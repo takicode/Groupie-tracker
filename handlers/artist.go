@@ -3,7 +3,6 @@ package handlers
 import (
 	"log"
 	"net/http"
-	 "groupie-tracker/api"
 )
 
 
@@ -19,11 +18,12 @@ func ArtistHandler(w http.ResponseWriter, r *http.Request){
 		return
 	}
 
-	artists := api.AllArtist()
+	displayInfo := Pagination(w, r)
 
-	err := templ.ExecuteTemplate(w, "artists.html", artists)
+	
+	err := templ.ExecuteTemplate(w, "artists.html", displayInfo)
 	if err != nil{
-			// log.Println("Error executing artist template:", err)
-			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+			log.Println("Error executing artist template:", err)
+			return
 		}
 }
