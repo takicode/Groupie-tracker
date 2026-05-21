@@ -33,7 +33,7 @@
         <article class="sections">
             <!-- find an artist -->
             <div class="search">
-                <form action:="/search" method="GET">
+                <form action="/artists#main" method="GET">
                     <label for="artist-search"><span style="color: #ffa200; margin-right: 5px;">&#x25C9;</span> Find an Artist</label>
                     <div class="search-input">
                         <input type="search" id="artist-search" name="search" placeholder="Queen"/>
@@ -46,7 +46,7 @@
                 </div> 
             </div>
             <div class="filter-panel">
-                <form id="car-form" action="/filter-data" method="GET">
+                <form id="artist-form" action="/artists#main" method="GET">
                     <div class="filter-element">
                     
                         <!-- Decade Filter -->
@@ -103,7 +103,7 @@
                 </form>
             </div>
 
-            <main>
+            <main id="main">
                 <div class="list">
                     <h3>{{.TotalArtists}} artists</h3><hr>
                     <p>Page {{.PageNo}} of {{.TotalPages}}</p>
@@ -112,7 +112,7 @@
                 <div class="artist-grid">
                     {{range .Artists}}
                     <div class="grid-card">
-                        <img src={{.Image}} alt={{.Name}} class="artist-image">
+                        <img src="{{.Image}}" alt="{{.Name}}" class="artist-image">
                         <p>{{.Name}}</p>
                         <p>Est. {{.CreationDate}} </p>
                     </div>
@@ -121,11 +121,23 @@
             </main>
             <div class="pagination">
                 <div class="pages">
-                    <a href="/artists?page={{.PrevPage}}" class="page">Prev</a>
+                     {{if gt .PageNo 1 }}
+                      <a href="/artists?page={{.PrevPage}}#main" class="page">Prev</a>
+                      {{else}}
+                       <span class="disabled-btn page">prev</span>
+                      {{end}}
                     {{range .Pages}}
-                    <a href="/artists?page={{.}}" class="page">{{.}}</a> 
+                      {{if eq . $.PageNo}}
+                        <span class="active page">{{.}}</span>
+                      {{else}}
+                        <a href="/artists?page={{.}}#main" class="page">{{.}}</a>
+                      {{end}}
                     {{end}}
-                    <a href="/artists?page={{.NextPage}}" class="page">Next</a>
+                    {{if lt .PageNo .TotalPages }}
+                      <a href="/artists?page={{.NextPage}}#main" class="page">Next</a>
+                      {{else}}
+                       <span class="disabled-btn page">Next</span>
+                      {{end}}
                 </div>
             </div>
         </article>

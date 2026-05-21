@@ -4,7 +4,9 @@
     box-sizing: border-box;
 }
 
-
+html{
+    scroll-behavior: smooth;
+}
 
 :root {
     --bg: #0F172A;
@@ -375,13 +377,28 @@ input[type="range"] {
     justify-content:center;
     gap:30px
 }
-
-.pages a{
+.page{
     border:none;
     background:rgba(206, 128, 32, 0.867);
     padding:10px 20px;
     font-size:24px;
     border-radius:10px;
+}
+.active {           
+    font-weight: bold;
+    transform:translateY(-5px);
+    color: black;
+    background: #373434;
+}
+
+.disabled-btn {
+  color: #a1a1a1;            
+  background-color: #373434; 
+  border: 1px solid #e0e0e0; 
+  cursor: not-allowed;       
+  pointer-events: none;     
+  user-select: none;  
+  opacity: 0.6;    
 }
 
 

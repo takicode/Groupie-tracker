@@ -10,7 +10,7 @@ import (
 var artistsInfo []FullArtistInfo
 
 func LoadData()error{
-    artists, err :=getArtists()
+  artists, err :=getArtists()
   if err != nil {
     return nil
   }
@@ -21,7 +21,6 @@ func LoadData()error{
   }
 
   relMap := make(map[int]Relation)
-
 
   for _, rel := range relations{
     relMap[rel.Id] = rel
