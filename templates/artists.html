@@ -122,7 +122,7 @@
             <div class="pagination">
                 <div class="pages">
                      {{if gt .PageNo 1 }}
-                      <a href="/artists?page={{.PrevPage}}#main" class="page">Prev</a>
+                      <a href="/artists?page={{.PrevPage}}&search={{.Search}}#main" class="page">Prev</a>
                       {{else}}
                        <span class="disabled-btn page">prev</span>
                       {{end}}
@@ -130,11 +130,11 @@
                       {{if eq . $.PageNo}}
                         <span class="active page">{{.}}</span>
                       {{else}}
-                        <a href="/artists?page={{.}}#main" class="page">{{.}}</a>
+                        <a href="/artists?page={{.}}&search={{$.Search}}#main" class="page">{{.}}</a>
                       {{end}}
                     {{end}}
                     {{if lt .PageNo .TotalPages }}
-                      <a href="/artists?page={{.NextPage}}#main" class="page">Next</a>
+                      <a href="/artists?page={{.NextPage}}&search={{.Search}}#main" class="page">Next</a>
                       {{else}}
                        <span class="disabled-btn page">Next</span>
                       {{end}}

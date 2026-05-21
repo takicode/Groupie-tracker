@@ -16,7 +16,7 @@ func ArtistHandler(w http.ResponseWriter, r *http.Request){
 		return
 	}
 
-	displayInfo := FilterArtist(w, r)
+	displayInfo := Pagination(w, r)
 
 	err := templ.ExecuteTemplate(w, "artists.html", displayInfo)
 	if err != nil{
