@@ -20,15 +20,27 @@ type FilterArtistInfo struct{
    PageNo int
    TotalPages int
    Search string
+   Locations []string
+   Dates []int
+   SortBy string
+   Location string
+   Decade string
+   Members string
 }
+
 
 
 
 func Pagination(w http.ResponseWriter, r *http.Request)FilterArtistInfo{
   search := r.URL.Query().Get("search")
+  sort_by := r.URL.Query().Get("sort_by")
+  location := r.URL.Query().Get("location")
+  decade := r.URL.Query().Get("decade")
+  members:= r.URL.Query().Get("members")
   artists := FilterArtist(w, r)
+  locations := GetLoc()
+  dates := GetDates()
 
- 
   pageString := r.URL.Query().Get("page")
 
 
@@ -100,6 +112,12 @@ func Pagination(w http.ResponseWriter, r *http.Request)FilterArtistInfo{
     PageNo:pageNo,
     TotalPages:totalPages,
     Search:search, 
+    Locations:locations,
+    Dates: dates,
+    SortBy: sort_by,
+    Location:location,
+    Decade:decade,
+    Members:members,
   } 
   return data
 }
