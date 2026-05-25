@@ -2,8 +2,8 @@ package api
 
 // Artist Struct
 type Artist struct{
-  Id      int     `json:"id"`
-  Name    string  `json:"name"`
+  Id           int      `json:"id"`
+  Name         string   `json:"name"`
   Image        string   `json:"image"`
   Members      []string `json:"members"`
   CreationDate int      `json:"creationDate"`
@@ -27,6 +27,4 @@ type FullArtistInfo struct{
   Artist
   DateLocations map[string][]string
 }
-
-
 
