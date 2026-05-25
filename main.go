@@ -10,10 +10,11 @@ import (
 
 
 func main(){
-  http.HandleFunc("/artists", groupie.ArtistHandler)
+  http.HandleFunc("/artists", groupie.ArtistsHandler)
+  http.HandleFunc("/artist", groupie.ArtistHandler)
   http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("./static"))))
   // Routes
- http.HandleFunc("/", groupie.HomeHandler)
+  http.HandleFunc("/", groupie.HomeHandler)
   
   err := api.LoadData()
    if err != nil{

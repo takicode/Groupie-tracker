@@ -1,8 +1,6 @@
-package handlers
+package controllers
 
 import (
-  // "strings"
-  // "fmt"
   "net/http"
   "groupie-tracker/api"
   "strconv"

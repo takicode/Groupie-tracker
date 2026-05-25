@@ -50,7 +50,16 @@
                 id="artist-search"
                 name="search"
                 placeholder="Queen"
+                list="search-artists"
               />
+              <datalist id="search-artists">
+                {{range .Artists}}
+                  <option>{{.Name}}</option>
+                  {{range .Members}}
+                   <option>{{.}}</option>
+                  {{end}}
+                {{end}}
+              </datalist>
               <button type="submit">Search</button>
             </div>
             {{if .Search}}
@@ -109,7 +118,7 @@
                   value="10"
                   oninput="document.getElementById('mv').textContent = this.value"
                 />
-                <span id="mv">1</span>
+                <span id="mv">10</span>
               </div>
   
               <!-- Form Actions -->
@@ -160,11 +169,14 @@
 
           <div class="artist-grid">
             {{range .Artists}}
-            <div class="grid-card">
+            <a href="/artist?id={{.Id}}">
+              <div class="grid-card">
               <img src="{{.Image}}" alt="{{.Name}}" class="artist-image" />
               <p>{{.Name}}</p>
               <p>Est. {{.CreationDate}}</p>
             </div>
+            </a>
+           
             {{end}}
           </div>
         </main>

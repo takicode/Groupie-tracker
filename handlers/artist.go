@@ -3,6 +3,7 @@ package handlers
 import (
 	"log"
 	"net/http"
+	"groupie-tracker/controllers"
 )
 
 
@@ -15,8 +16,10 @@ func ArtistHandler(w http.ResponseWriter, r *http.Request){
 			}
 		return
 	}
+      
+    
 
-	displayInfo := Pagination(w, r)
+	displayInfo := controllers.Pagination(w, r)
 
 	err := templ.ExecuteTemplate(w, "artists.html", displayInfo)
 	if err != nil{

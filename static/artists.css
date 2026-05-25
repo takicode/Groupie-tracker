@@ -166,6 +166,7 @@ a:hover {
     padding:10px;
     border:none;
     background:#413e3e;
+    color:#c88517;
     border-radius:10px;
     font-size:20px;
 }
@@ -359,6 +360,13 @@ input[type="range"] {
     gap: 24px;
 }
 
+.artist-grid a{
+  width :100%;
+  display:flex;
+  justify-content:center;
+  
+}
+
 .grid-card {
     display: flex;
     flex-direction: column;
@@ -371,10 +379,12 @@ input[type="range"] {
     transition: transform 0.6s ease, box-shadow 0.2s ease;
     width: 100%;
     max-width: 300px;
+    cursor:pointer;
 }
 
 .grid-card:hover{
-    transform:translateY(-10px)
+    transform:translateY(-10px);
+    box-shadow:0px 4px 10px rgb(227, 180, 98)
 }
 
 .artist-image{

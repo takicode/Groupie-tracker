@@ -28,5 +28,3 @@ type FullArtistInfo struct{
   DateLocations map[string][]string
 }
 
-
-

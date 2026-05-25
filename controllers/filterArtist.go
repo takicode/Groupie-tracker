@@ -1,4 +1,4 @@
-package handlers
+package controllers
 
 import (
   "strings"
@@ -34,7 +34,7 @@ func FilterArtist(w http.ResponseWriter, r *http.Request)[]api.FullArtistInfo{
 
 
 		for _, member := range artist.Artist.Members{
-			if strings.Contains(member,search ){
+			if strings.Contains(strings.ToLower(member),search){
 				matched = true
 				break
 		}
