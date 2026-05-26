@@ -37,7 +37,6 @@ nav {
     justify-content: space-between;
     align-items: center;
     background: #b4b3b32e;
-    gap: 20px;
     border-radius: 60px;
     backdrop-filter: blur(20px);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -361,10 +360,19 @@ input[type="range"] {
 }
 
 .artist-grid a{
+    filter:grayscale(1) blur(2px);
+}
+
+
+.artist-grid a{
   width :100%;
   display:flex;
   justify-content:center;
   
+}
+
+.artist-grid:hover a:hover{
+    filter:none
 }
 
 .grid-card {
@@ -380,11 +388,14 @@ input[type="range"] {
     width: 100%;
     max-width: 300px;
     cursor:pointer;
+  
 }
 
 .grid-card:hover{
-    transform:translateY(-10px);
-    box-shadow:0px 4px 10px rgb(227, 180, 98)
+    transform:scale(1.2);
+    box-shadow:0px 4px 10px rgb(227, 180, 98);
+    z-index:1;
+    
 }
 
 .artist-image{
@@ -453,6 +464,15 @@ input[type="range"] {
     }
 }
 
+@keyframes autoRot {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
 
 
 @keyframes pulse {

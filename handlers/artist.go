@@ -3,7 +3,8 @@ package handlers
 import (
 	"log"
 	"net/http"
-	"groupie-tracker/controllers"
+	"groupie-tracker/api"
+	"strconv"
 )
 
 
@@ -12,16 +13,42 @@ func ArtistHandler(w http.ResponseWriter, r *http.Request){
 		w.WriteHeader(http.StatusNotFound)
 		err:= templ.ExecuteTemplate(w, "notFound.html", nil)
 			if err != nil{
-				log.Fatal("Error accessing not found page", err)
+				log.Println("Error accessing not found page", err)
 			}
 		return
 	}
-      
-    
 
-	displayInfo := controllers.Pagination(w, r)
+	id , err:= strconv.Atoi(r.URL.Query().Get("id"))
 
-	err := templ.ExecuteTemplate(w, "artists.html", displayInfo)
+	if err != nil {
+	http.Error(w, "Invalid artist ID", http.StatusBadRequest)
+	return
+}
+
+	artists := api.AllArtist()
+	var singleArtist  api.FullArtistInfo
+    found:= false
+
+	for _,artist := range artists{
+		if artist.Id == id{
+		   	singleArtist = artist
+			found = true
+			break
+		}
+	}
+
+	if !found {
+	w.WriteHeader(http.StatusNotFound)
+
+	err := templ.ExecuteTemplate(w, "notFound.html", nil)
+	if err != nil {
+		log.Println(err)
+	}
+	return
+}
+
+
+	err = templ.ExecuteTemplate(w, "artist.html", singleArtist)
 	if err != nil{
 			log.Println("Error executing artist template:", err)
 			return

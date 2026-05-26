@@ -6,10 +6,27 @@
       href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="/static/artists.css" />
+    <link rel="stylesheet" href="/static/artist.css" />
     <title>artist page</title>
   </head>
   <body>
-      
+    <div class="page-wrap">
+      <nav>
+        <div class="navbar">
+          <a class="logo">Groupie <span class="tracker">tracker</span></a>
+          <ul class="links">
+            <li><a href="#artists">Members</a></li>
+            <li><a href="#tour">Map</a></li>
+            <li><a href="#location">Tour dates</a></li>
+          </ul>
+          <a href="/artists" class="all">all artists</a>
+        </div>
+      </nav>
+      <main>
+        <h1>
+          {{.Name}}
+        </h1>
+      </main>
+    </div>
   </body>
 </html>

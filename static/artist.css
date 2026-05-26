@@ -1,0 +1,135 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html{
+    scroll-behavior: smooth;
+}
+
+:root {
+    --bg: #0F172A;
+    --text-color: #F8FAFC;
+    --blob-main: #6D28D9;
+    --blob-accent: #9333EA;
+}
+
+body {
+    background: var(--bg);
+    color: var(--text-color);
+    font-family: sans-serif;
+    overflow-x: hidden;
+}
+.page-wrap {
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 0 clamp(24px, 6vw, 80px);
+}
+
+
+nav {
+    position: sticky;
+    top: 20px;
+    z-index: 1000;
+    padding: 0 clamp(16px, 8vw, 100px);
+}
+
+
+.navbar {
+    margin: 0;
+    padding: clamp(12px, 2vw, 15px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #b4b3b32e;
+    border-radius: 60px;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-transform: capitalize;
+    width: 100%;
+}
+
+
+.logo {
+    font-family: "Great Vibes", cursive;
+    font-size: clamp(1.7rem, 3vw, 2.5rem);
+    flex-shrink: 0;
+}
+
+.tracker {
+    color: rgba(206, 128, 32, 0.867);
+}
+
+
+.links {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: clamp(12px, 2vw, 40px);
+    list-style: none;
+    transition: all .7s ease-in;
+}
+
+a {
+    text-decoration: none;
+    color: #fff;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #804e04;
+}
+
+.all{
+    color:#d88912;
+    border:1px solid #d88912;
+    border-radius: 50px;
+    padding: 15px 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all .7s ease-in ;
+}
+.all::before{
+    content:"⬅";
+    color:#d88912;
+    margin-right:5px;
+    transition: color .7s ease-in;
+}
+.all:hover::before{
+    color:#804e04;
+}
+.all:hover{
+  background:#d88912 ;
+  color: #804e04;
+}
+
+
+
+@media screen and (max-width: 768px) {
+    nav { 
+        padding: 0 16px; 
+    }
+
+    .navbar {
+        border-radius: 24px;
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .links {
+        justify-content: center;
+        gap: 16px;
+    }
+    
+    
+ 
+}
+
+
+@media screen and (max-width:600px){
+  
+
+
+}
