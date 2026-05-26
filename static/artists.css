@@ -360,7 +360,7 @@ input[type="range"] {
 }
 
 .artist-grid a{
-    filter:grayscale(1) blur(2px);
+    filter:grayscale(.5) blur(1px);
 }
 
 

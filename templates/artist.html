@@ -22,11 +22,25 @@
           <a href="/artists" class="all">all artists</a>
         </div>
       </nav>
-      <main>
-        <h1>
-          {{.Name}}
-        </h1>
+      <main class="hero">
+        <div >
+          <img src="{{.Image}}" class="hero-image"/>
+          <h1>{{.Name}}</h1>
+          <div class="details">
+             <h3><span class="text">Est .</span>  {{.CreationDate}}</h3>
+             <h3><span class="text">First album</span>  {{.FirstAlbum}}</h3>
+             <h3><span class="text">member.</span>  {{len .Members}}</h3>
+             <h3><span class="text">Location</span>  {{.CreationDate}}</h3>
+          </div>
+        </div>
+        <div>
+          <img src="/static/images/vinyl.svg" class="hero-svg"/>
+        </div>
       </main>
+      <article>
+
+      </article>
     </div>
   </body>
 </html>
+

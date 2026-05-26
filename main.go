@@ -13,6 +13,7 @@ func main(){
   http.HandleFunc("/artists", groupie.AllartistsHandler)
   http.HandleFunc("/artist", groupie.ArtistHandler)
   http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("./static"))))
+  
   // Routes
   http.HandleFunc("/", groupie.HomeHandler)
   

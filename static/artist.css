@@ -105,6 +105,54 @@ a:hover {
   color: #804e04;
 }
 
+.hero{
+    padding:100px 0;
+    display:flex;
+    justify-content:space-between;
+    align-items:center
+}
+
+.hero-image{
+    border-radius:50%
+}
+
+.hero div h1{
+    padding-top:20px;
+    font-size:30px;
+    text-align:start;
+    margin-left:50px;
+}
+
+.details{
+    display:flex;
+    padding-top:20px;
+    gap:30px;
+}
+
+
+.details h3{
+    text-align:center;
+    border:1px solid #d88912;
+    border-radius:20px;
+    padding:10px 20px;
+}
+.text{
+    color: #d88912;
+}
+
+.hero-svg{
+    width:500px;
+    animation:roll 5s linear infinite;
+}
+
+@keyframes roll{
+    from{
+        transform:rotate(0deg)
+    }
+    to{
+       transform:rotate(360deg)
+    }
+}
 
 
 @media screen and (max-width: 768px) {
@@ -127,9 +175,3 @@ a:hover {
  
 }
 
-
-@media screen and (max-width:600px){
-  
-
-
-}

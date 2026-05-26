@@ -50,7 +50,7 @@ func ArtistHandler(w http.ResponseWriter, r *http.Request){
 
 	err = templ.ExecuteTemplate(w, "artist.html", singleArtist)
 	if err != nil{
-			log.Println("Error executing artist template:", err)
-			return
-		}
+		log.Println("Error executing artist template:", err)
+		return
+	}
 }
