@@ -24,22 +24,101 @@
       </nav>
       <main class="hero">
         <div >
-          <img src="{{.Image}}" class="hero-image"/>
-          <h1>{{.Name}}</h1>
+          <div class="hero-container">
+            <div class="image-border">
+              <img src="{{.Image}}" class="hero-image"/>
+            </div>
+            <h1 class="artist-name">{{.Name}}</h1>
+          </div>
           <div class="details">
              <h3><span class="text">Est .</span>  {{.CreationDate}}</h3>
              <h3><span class="text">First album</span>  {{.FirstAlbum}}</h3>
              <h3><span class="text">member.</span>  {{len .Members}}</h3>
-             <h3><span class="text">Location</span>  {{.CreationDate}}</h3>
+             <h3><span class="text">Location</span>  {{len .DateLocations}}</h3>
           </div>
         </div>
         <div>
           <img src="/static/images/vinyl.svg" class="hero-svg"/>
         </div>
       </main>
-      <article>
-
-      </article>
+      <div>
+        <article>
+          <h3>Members</h3>
+          <div class="music">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+          </div>                 
+        </article>
+        <section class="members">
+          <div>
+            {{range  .Members}}
+              <p><span class="initial">{{slice . 0 1}}</span>{{.}}</p>
+            {{end}}
+          </div>
+        </section>
+      </div>
+      
+      <div>
+        <article class="tours">
+          <h3>Tours</h3>
+          <div class="music">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+          </div>                 
+        </article>
+        <section class="dateLocation">
+          {{range $loc, $value := .DateLocations}}
+          <div class="tour-elements">
+            <div class="locations">
+              <p><span style="color: #ffa200; margin-right: 5px">&#x25C9;</span>{{$loc}}</p>
+              <p>{{len $value}} dates</p>
+              
+            </div>
+            <div class="dates">
+              {{range $value}}
+              <p>{{.}}</p>
+              {{end}}
+            </div>
+          </div>
+          {{end}}
+        </section>
+      </div>
     </div>
   </body>
 </html>
