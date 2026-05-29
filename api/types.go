@@ -28,3 +28,8 @@ type FullArtistInfo struct{
   DateLocations map[string][]string
 }
 
+
+type GeoLocation struct{
+  Lat string `json:"lat"`
+  Long string `json:"long"`
+}

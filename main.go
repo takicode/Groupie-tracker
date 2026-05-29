@@ -10,6 +10,10 @@ import (
 
 
 func main(){
+  err := api.LoadData()
+   if err != nil{
+    log.Fatal(err)
+  }
   http.HandleFunc("/artists", groupie.AllartistsHandler)
   http.HandleFunc("/artist", groupie.ArtistHandler)
   http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("./static"))))
@@ -17,10 +21,6 @@ func main(){
   // Routes
   http.HandleFunc("/", groupie.HomeHandler)
   
-  err := api.LoadData()
-   if err != nil{
-    log.Fatal(err)
-  }
 
  log.Println("Server listening on port 8080")
  err= http.ListenAndServe(":8080", nil)
