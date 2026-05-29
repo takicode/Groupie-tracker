@@ -16,7 +16,6 @@
         <ul class="links">
           <li><a href="#main">artists</a></li>
           <li><a href="#tour">tour</a></li>
-          <li><a href="#location">location</a></li>
         </ul>
         <a>About</a>
       </div>
@@ -132,19 +131,19 @@
           {{if .Decade}}
             <div class="filter-tag">
               {{.Decade}}s
-              <a href="/artists?search={{$.Search}}&location={{$.Location}}&members={{$.Members}}&sort_by={{.SortBy}}#main">x</a>
+              <a href="/artists?search={{$.Search}}&location={{$.Location}}&members={{$.Members}}&sort_by={{$.SortBy}}#main">x</a>
             </div>
           {{end}}
           {{if .Location}}
             <div class="filter-tag">
               {{.Location}}
-              <a href="/artists?search={{$.Search}}&decade={{$.Decade}}&members={{$.Members}}&sort_by={{.SortBy}}#main">X</a>
+              <a href="/artists?search={{$.Search}}&decade={{$.Decade}}&members={{$.Members}}&sort_by={{$.SortBy}}#main">X</a>
             </div>
           {{end}}
           {{if .Members}}
             <div class="filter-tag">
               {{.Members}} members max
-              <a href="/artists?search={{$.Search}}&decade={{$.Decade}}&location={{$.Location}}&sort_by={{.SortBy}}#main">X</a>
+              <a href="/artists?search={{$.Search}}&decade={{$.Decade}}&location={{$.Location}}&sort_by={{$.SortBy}}#main">X</a>
             </div>
           {{end}}
           {{if .SortBy}}

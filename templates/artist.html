@@ -7,6 +7,12 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="/static/artist.css" />
+     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+     crossorigin=""></script>
     <title>artist page</title>
   </head>
   <body>
@@ -75,6 +81,41 @@
           </div>
         </section>
       </div>
+
+
+       <div id="Maps">
+        <article class="tours" >
+          <h3>Map</h3>
+          <div class="music">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+          </div>                 
+        </article>
+        <section >
+          <div id="map">
+          </div>
+        </section>
+      </div>
+
+
       
       <div>
         <article class="tours">
@@ -121,5 +162,14 @@
       </div>
     </div>
   </body>
-</html>
+  <script>
+    const map = L.map("map").setView([20,0], 2);
+          L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{
+        maxZoom:19
+        }).addTo(map);
 
+    L.marker([6.5244,3.3792])
+    .addTo(map)
+    .bindPopup("Lagos");
+</script>
+</html>
