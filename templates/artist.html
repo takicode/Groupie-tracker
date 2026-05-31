@@ -32,15 +32,15 @@
         <div >
           <div class="hero-container">
             <div class="image-border">
-              <img src="{{.Image}}" class="hero-image"/>
+              <img src="{{.Artist.Image}}" class="hero-image"/>
             </div>
-            <h1 class="artist-name">{{.Name}}</h1>
+            <h1 class="artist-name">{{.Artist.Name}}</h1>
           </div>
           <div class="details">
-             <h3><span class="text">Est .</span>  {{.CreationDate}}</h3>
-             <h3><span class="text">First album</span>  {{.FirstAlbum}}</h3>
-             <h3><span class="text">member.</span>  {{len .Members}}</h3>
-             <h3><span class="text">Location</span>  {{len .DateLocations}}</h3>
+             <h3><span class="text">Est .</span>  {{.Artist.CreationDate}}</h3>
+             <h3><span class="text">First album</span>  {{.Artist.FirstAlbum}}</h3>
+             <h3><span class="text">member.</span>  {{len .Artist.Members}}</h3>
+             <h3><span class="text">Location</span>  {{len .Artist.DateLocations}}</h3>
           </div>
         </div>
         <div>
@@ -75,7 +75,7 @@
         </article>
         <section class="members">
           <div>
-            {{range  .Members}}
+            {{range  .Artist.Members}}
               <p><span class="initial">{{slice . 0 1}}</span>{{.}}</p>
             {{end}}
           </div>
@@ -144,7 +144,7 @@
           </div>                 
         </article>
         <section class="dateLocation">
-          {{range $loc, $value := .DateLocations}}
+          {{range $loc, $value := .Artist.DateLocations}}
           <div class="tour-elements">
             <div class="locations">
               <p><span style="color: #ffa200; margin-right: 5px">&#x25C9;</span>{{$loc}}</p>
@@ -163,13 +163,21 @@
     </div>
   </body>
   <script>
-    const map = L.map("map").setView([20,0], 2);
-          L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{
-        maxZoom:19
-        }).addTo(map);
+    const map = L.map("map").setView([0,0], 1);
+   const markers = [];
 
-    L.marker([6.5244,3.3792])
-    .addTo(map)
-    .bindPopup("Lagos");
+    L.tileLayer("https://api.maptiler.com/maps/streets-v4/{z}/{x}/{y}.png?key=z0NxrDtgwYkw2uFjy5OO", {
+      maxZoom:19
+    }).addTo(map)
+    
+  const locations = JSON.parse('{{.LocationJSON}}');
+
+  locations.forEach((location)=>{
+     L.marker([location.Lat, location.Long]).addTo(map).bindPopup(location.Name)
+       markers.push([location.Lat, location.Long]);
+  })
+  if (markers.length > 0) {
+    map.fitBounds(markers);
+}
 </script>
 </html>

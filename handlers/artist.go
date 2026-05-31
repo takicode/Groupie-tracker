@@ -3,8 +3,12 @@ package handlers
 import (
 	"log"
 	"net/http"
+	"html/template"
 	"groupie-tracker/api"
+	"groupie-tracker/controllers"
+	"encoding/json"
 	"strconv"
+	"strings"
 )
 
 
@@ -26,7 +30,7 @@ func ArtistHandler(w http.ResponseWriter, r *http.Request){
 }
 
 	artists := api.AllArtist()
-	var singleArtist  api.FullArtistInfo
+	var singleArtist api.FullArtistInfo
     found:= false
 
 	for _,artist := range artists{
@@ -47,8 +51,48 @@ func ArtistHandler(w http.ResponseWriter, r *http.Request){
 	return
 }
 
+	var locations []api.GeoLocation
 
-	err = templ.ExecuteTemplate(w, "artist.html", singleArtist)
+    for loc, date := range singleArtist.DateLocations{
+		location:= strings.ReplaceAll(loc,"_"," ")
+		location = strings.ReplaceAll(location,"-"," ")
+
+
+		locationResp,err := controllers.GeoLocation(location)
+			if err != nil {
+			log.Println("unable to collect location:", err)
+			continue
+		}
+		if len(locationResp) == 0{
+			 log.Println("location not found")
+			continue
+		}
+         
+		geo, err := controllers.GeoJson(locationResp, date)
+			if err != nil {
+				continue
+			}
+
+    	locations = append(locations, geo)
+
+	}
+    
+	locJson, err := json.Marshal(locations)
+
+	if err != nil {
+    log.Println("failed to marshal locations:", err)
+    http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+    return
+}
+
+	data := api.ArtistPage{
+		Artist:singleArtist,
+        LocationJSON :template.JS(string(locJson)),
+	}
+
+
+	err = templ.ExecuteTemplate(w, "artist.html", data)
+
 	if err != nil{
 		log.Println("Error executing artist template:", err)
 		return

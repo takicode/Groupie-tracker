@@ -1,5 +1,9 @@
 package api
 
+import (
+  "html/template"
+)
+
 // Artist Struct
 type Artist struct{
   Id           int      `json:"id"`
@@ -30,6 +34,20 @@ type FullArtistInfo struct{
 
 
 type GeoLocation struct{
+  Lat float64 
+  Long float64 
+  Name string 
+  Dates []string 
+}
+
+
+type GeoResponse struct{
   Lat string `json:"lat"`
-  Long string `json:"long"`
+  Lon string `json:"lon"`
+  DisplayName string `json:"name"`
+}
+
+type ArtistPage struct{
+  Artist    FullArtistInfo
+  LocationJSON  template.JS
 }
