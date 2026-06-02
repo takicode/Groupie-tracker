@@ -8,7 +8,6 @@ import (
 	"groupie-tracker/controllers"
 	"encoding/json"
 	"strconv"
-	"strings"
 )
 
 
@@ -54,26 +53,15 @@ func ArtistHandler(w http.ResponseWriter, r *http.Request){
 	var locations []api.GeoLocation
 
     for loc, date := range singleArtist.DateLocations{
-		location:= strings.ReplaceAll(loc,"_"," ")
-		location = strings.ReplaceAll(location,"-"," ")
+		
+		geo := controllers.CoordinatesMap[loc]
 
+		
+		geo.Dates = date
 
-		locationResp,err := controllers.GeoLocation(location)
-			if err != nil {
-			log.Println("unable to collect location:", err)
-			continue
-		}
-		if len(locationResp) == 0{
-			 log.Println("location not found")
-			continue
-		}
-         
-		geo, err := controllers.GeoJson(locationResp, date)
-			if err != nil {
-				continue
-			}
-
-    	locations = append(locations, geo)
+		
+		controllers.CoordinatesMap[loc] = geo
+		locations = append(locations, geo)
 
 	}
     
