@@ -1,134 +1,219 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-    <head>
-         <meta charset="UTF-8">
-         <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="/static/artists.css"/>
-        <title>artists page</title>
-    </head>
-    <body>
-        <nav >
-           <div class="navbar">
-             <a class="logo">Groupie <span class="tracker">tracker</span></a>
-            <ul class="links">
-                <li><a href="#artists">artists</a></li>
-                <li><a href="#tour">tour</a></li>
-                <li><a href="#location">location</a></li>
-               
-            </ul>
-            <div>
-                <a>About</a>
-            </div>
-           </div>
-        </nav>
-        <section class="hero">
-            <div class="hero-text">
-                <h1>Every band. <br>Every <span class="tracker">sound.</span></h1>
-                <p>Browse artists trace their tours across the globe, and dive deep into the <br>music that <span class="tracker">shaped generations.</span></p>
-            </div>
-            <div class="hero-image">
-                <img src="/static/images/compass.svg" class="hero-banner">
-            </div>
-        </section>
-        <article class="sections">
-            <!-- find an artist -->
-            <div class="search">
-                <form action:="/search" method="GET">
-                    <label for="artist-search"><span style="color: #ffa200; margin-right: 5px;">&#x25C9;</span> Find an Artist</label>
-                    <div class="search-input">
-                        <input type="search" id="artist-search" name="search" placeholder="Queen"/>
-                        <button type="submit">Search</button>
-                    </div>
-                </form>
-                <div class="section-text">
-                   <p>Showing result for "Queen" . 4 found</p>
-                   <a href="#">x Clear</a>
-                </div> 
-            </div>
-            <div class="filter-panel">
-                <form id="car-form" action="/filter-data" method="GET">
-                    <div class="filter-element">
-                    
-                        <!-- Decade Filter -->
-                        <div class="select-group">
-                            <label for="decade">Decade formed</label>
-                            <select id="decade" name="decade">
-                                <option value="">Any Decade</option>
-                                <option value="1960">1960s</option>
-                                <option value="1970">1970s</option>
-                                <option value="1980">1980s</option>
-                                <option value="1990">1990s</option>
-                                <option value="2000">2000s</option>
-                            </select>
-                        </div>
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/static/artists.css" />
+    <title>artists page</title>
+  </head>
+  <body>
+    <nav>
+      <div class="navbar">
+        <a class="logo">Groupie <span class="tracker">tracker</span></a>
+        <ul class="links">
+          <li><a href="#main">artists</a></li>
+          <li><a href="#tour">tour</a></li>
+        </ul>
+        <a>About</a>
+      </div>
+    </nav>
+    <section class="hero">
+      <div class="hero-text">
+        <h1>Every band. <br />Every <span class="tracker">sound.</span></h1>
+        <p>
+          Browse artists trace their tours across the globe, and dive deep into
+          the <br />music that <span class="tracker">shaped generations.</span>
+        </p>
+      </div>
+      <div class="hero-image">
+        <img src="/static/images/compass.svg" class="hero-banner" />
+      </div>
+    </section>
 
-                        <!-- Location Filter -->
-                        <div class="select-group">
-                            <label for="location">Location</label>
-                            <select id="location" name="location">
-                                <option value="">Any Location</option>
-                                <option value="London, Uk">London, Uk</option>
-                                <option value="Paris, France">Paris, France</option>
-                                <option value="New york, USA">New York, USA</option>
-                                <option value="Los Angeles, USA">Los Angeles, USA</option>
-                            </select>
-                        </div>
-
-                        <!-- Sort Filter -->
-                        <div class="select-group">
-                            <label for="sort-by">Filter by</label>
-                            <select id="sort-by" name="sort_by">
-                                <option value="A-Z">A-Z</option>
-                                <option value="Z-A">Z-A</option>
-                                <option value="New">New</option>
-                                <option value="Old">Old</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <!-- Range Slider -->
-                    <div class="range-card">
-                       <div class="range-wrap">
-                            <label for="members">Max members</label>
-                            <input type="range" name="members" min="1" max="6" value="3"
-                                oninput="document.getElementById('mv').textContent = this.value">
-                            <span id="mv">3</span>
-                        </div>
-                        <!-- Form Actions -->
-                        <div class="filter-button">
-                            <a href="/artists">Reset</a>
-                            <button type="submit">Apply filter</button>
-                        </div>
-                    </div>
-                </form>
+    <article class="sections">
+      <div class="form-list">
+        <!-- find an artist -->
+        <form id="artist-form" action="/artists#main" method="GET">
+          <div class="search" id="search">
+            <label for="artist-search"
+              ><span style="color: #ffa200; margin-right: 5px">&#x25C9;</span>Find
+              an Artist
+            </label>
+            <div class="search-input">
+              <input
+                type="search"
+                id="artist-search"
+                name="search"
+                placeholder="Queen"
+                list="search-artists"
+              />
+              <datalist id="search-artists">
+                {{range .Artists}}
+                  <option>{{.Name}}</option>
+                  {{range .Members}}
+                   <option>{{.}}</option>
+                  {{end}}
+                {{end}}
+              </datalist>
+              <button type="submit">Search</button>
             </div>
-
-            <main>
-                <div class="list">
-                    <h3>{{.TotalArtists}} artists</h3><hr>
-                    <p>Page {{.PageNo}} of {{.TotalPages}}</p>
-                </div>
-                
-                <div class="artist-grid">
-                    {{range .Artists}}
-                    <div class="grid-card">
-                        <img src={{.Image}} alt={{.Name}} class="artist-image">
-                        <p>{{.Name}}</p>
-                        <p>Est. {{.CreationDate}} </p>
-                    </div>
-                    {{end}}
-                </div>
-            </main>
-            <div class="pagination">
-                <div class="pages">
-                    <a href="/artists?page={{.PrevPage}}" class="page">Prev</a>
-                    {{range .Pages}}
-                    <a href="/artists?page={{.}}" class="page">{{.}}</a> 
-                    {{end}}
-                    <a href="/artists?page={{.NextPage}}" class="page">Next</a>
-                </div>
+            {{if .Search}}
+            <div class="section-text">
+              <p>Showing result for {{.Search}} . {{.TotalArtists}} found</p>
+              <a href="/artists#search">x Clear</a>
             </div>
-        </article>
-    </body>
+            {{end}}
+          </div>
+  
+          <div class="filter-panel">
+            <div class="filter-element">
+              <!-- Decade Filter -->
+              <div class="select-group">
+                <label for="decade">Decade formed</label>
+                <select id="decade" name="decade">
+                  <option value="">Any Decade</option>
+                  {{range .Dates}}
+                  <option value="{{.}}">{{.}}s</option>
+                  {{end}}
+                </select>
+              </div>
+  
+              <!-- Location Filter -->
+              <div class="select-group">
+                <label for="location">Location</label>
+                <select id="location" name="location">
+                  <option value="">Any Location</option>
+                  {{range .Locations}}
+                  <option value="{{.}}">{{.}}</option>
+                  {{end}}
+                </select>
+              </div>
+  
+              <!-- Sort Filter -->
+              <div class="select-group">
+                <label for="sort-by">Filter by</label>
+                <select id="sort-by" name="sort_by">
+                  <option value="">default</option>
+                  <option value="A-Z">A-Z</option>
+                  <option value="Z-A">Z-A</option>
+                  <option value="New">New-Old</option>
+                  <option value="Old">Old-New</option>
+                </select>
+              </div>
+  
+              <!-- Range Slider -->
+  
+              <div class="range-wrap">
+                <label for="members">Max members</label>
+                <input
+                  type="range"
+                  name="members"
+                  min="1"
+                  max="10"
+                  value="10"
+                  oninput="document.getElementById('mv').textContent = this.value"
+                />
+                <span id="mv">10</span>
+              </div>
+  
+              <!-- Form Actions -->
+              <div class="filter-button">
+                <a href="/artists">Reset</a>
+                <button type="submit">Apply filter</button>
+              </div>
+            </div>
+          </div>
+        </form>
+        <div class="filter-tags" >
+          {{if .Decade}}
+            <div class="filter-tag">
+              {{.Decade}}s
+              <a href="/artists?search={{$.Search}}&location={{$.Location}}&members={{$.Members}}&sort_by={{$.SortBy}}#main">x</a>
+            </div>
+          {{end}}
+          {{if .Location}}
+            <div class="filter-tag">
+              {{.Location}}
+              <a href="/artists?search={{$.Search}}&decade={{$.Decade}}&members={{$.Members}}&sort_by={{$.SortBy}}#main">X</a>
+            </div>
+          {{end}}
+          {{if .Members}}
+            <div class="filter-tag">
+              {{.Members}} members max
+              <a href="/artists?search={{$.Search}}&decade={{$.Decade}}&location={{$.Location}}&sort_by={{$.SortBy}}#main">X</a>
+            </div>
+          {{end}}
+          {{if .SortBy}}
+            <div class="filter-tag">
+              {{.SortBy}}
+              <a href="/artists?search={{$.Search}}&decade={{$.Decade}}&location={{$.Location}}&members={{.Members}}#main">X</a>
+            </div>
+          {{end}}
+        </div>
+      </div>
+
+      {{if eq .TotalPages 0}}
+        <p id="main" class="notFound">No artist match the search</p>
+      {{else}}
+        <main id="main">
+          <div class="list">
+            <h3>{{.TotalArtists}} artists</h3>
+            <hr />
+            <p>Page {{.PageNo}} of {{.TotalPages}}</p>
+          </div>
+
+          <div class="artist-grid">
+            {{range .Artists}}
+            <a href="/artist?id={{.Id}}">
+              <div class="grid-card">
+              <img src="{{.Image}}" alt="{{.Name}}" class="artist-image" />
+              <p>{{.Name}}</p>
+              <p>Est. {{.CreationDate}}</p>
+            </div>
+            </a>
+           
+            {{end}}
+          </div>
+        </main>
+        <div class="pagination">
+          <div class="pages">
+            {{if gt .PageNo 1 }}
+              <a
+                href="/artists?page={{.PrevPage}}&search={{$.Search}}&sort_by={{$.SortBy}}&decade={{$.Decade}}&location={{$.Location}}&members={{$.Members}}#main"
+                class="page"
+                >Prev</a
+              >
+            {{else}}  
+            {{end}} 
+            
+            {{range .Pages}} 
+              {{if eq . $.PageNo}}
+                <span class="active page">{{.}}</span>
+              {{else}}
+                <a
+                  href="/artists?page={{.}}&search={{$.Search}}&sort_by={{$.SortBy}}&decade={{$.Decade}}&location={{$.Location}}&members={{$.Members}}#main"
+                  class="page"
+                  >{{.}}</a
+                >
+              {{end}} 
+            {{end}} 
+            {{if lt .PageNo .TotalPages }}
+              <a
+                href="/artists?page={{.NextPage}}&search={{$.Search}}&sort_by={{$.SortBy}}&decade={{$.Decade}}&location={{$.Location}}&members={{$.Members}}#main"
+                class="page"
+                >Next
+              </a>
+            {{else}}
+              <span class="disabled-btn page">Next</span>
+            {{end}}
+            
+          </div>
+        </div>
+      {{end}}
+      
+    </article>
+  </body>
 </html>
-

@@ -10,7 +10,7 @@ import (
 var artistsInfo []FullArtistInfo
 
 func LoadData()error{
-    artists, err :=getArtists()
+  artists, err :=getArtists()
   if err != nil {
     return nil
   }
@@ -21,7 +21,6 @@ func LoadData()error{
   }
 
   relMap := make(map[int]Relation)
-
 
   for _, rel := range relations{
     relMap[rel.Id] = rel
@@ -53,12 +52,12 @@ func AllArtist ()[]FullArtistInfo{
 func getArtists()([]Artist, error){
     data,err:= http.Get("https://groupietrackers.herokuapp.com/api/artists")
     if err != nil{
-      return nil, err
+      return []Artist{}, err
     }
    defer data.Body.Close()
 
     if data.StatusCode != http.StatusOK{
-     return nil, fmt.Errorf("bad status: %s", data.Status)
+     return []Artist{}, fmt.Errorf("bad status: %s", data.Status)
    }
    
    var artists []Artist
@@ -66,7 +65,7 @@ func getArtists()([]Artist, error){
 
    err = json.NewDecoder(data.Body).Decode(&artists)
     if err != nil{
-     return nil, err
+     return []Artist{}, err
     }
     
 
@@ -76,12 +75,12 @@ func getArtists()([]Artist, error){
 func getRelations()([]Relation, error){
     data,err:= http.Get("https://groupietrackers.herokuapp.com/api/relation")
     if err != nil{
-      return nil, err
+      return []Relation{}, err
     }
    defer data.Body.Close()
 
    if data.StatusCode != http.StatusOK{
-     return nil, fmt.Errorf("bad status: %s", data.Status)
+     return []Relation{}, fmt.Errorf("bad status: %s", data.Status)
    }
    
    var relation RelationIndex
@@ -89,7 +88,7 @@ func getRelations()([]Relation, error){
 
    err = json.NewDecoder(data.Body).Decode(&relation)
     if err != nil{
-     return nil, err
+     return []Relation{}, err
     }
     
     return relation.Index, nil
