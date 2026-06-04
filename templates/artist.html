@@ -171,9 +171,10 @@
     }).addTo(map)
     
   const locations = JSON.parse('{{.LocationJSON}}');
-
+  console.log(locations);
+  
   locations.forEach((location)=>{
-     L.marker([location.Lat, location.Long]).addTo(map).bindPopup(location.Name)
+     L.marker([location.Lat, location.Long]).addTo(map).bindPopup(`${location.Name}<br>Date: ${location.Dates[0]}`)
        markers.push([location.Lat, location.Long]);
   })
   if (markers.length > 0) {

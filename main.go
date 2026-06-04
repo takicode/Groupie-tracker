@@ -5,7 +5,8 @@ import (
   "net/http"
   "log"
    groupie "groupie-tracker/handlers"
-   api "groupie-tracker/api"
+   "groupie-tracker/api"
+   "groupie-tracker/controllers"
 )
 
 
@@ -14,6 +15,15 @@ func main(){
    if err != nil{
     log.Fatal(err)
   }
+  // to initiate locations coordinate
+  locations := controllers.GetLoc()
+  // controllers.Coordinate(locations)
+   
+if err := controllers.LoadOrBuildCache(locations); err != nil {
+    log.Fatal(err)
+}
+
+
   http.HandleFunc("/artists", groupie.AllartistsHandler)
   http.HandleFunc("/artist", groupie.ArtistHandler)
   http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("./static"))))

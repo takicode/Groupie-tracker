@@ -7,7 +7,7 @@ import (
 	// "fmt"
 )
 
-func GeoJson(geoResp []api.GeoResponse, date []string)(api.GeoLocation,error){
+func GeoJson(geoResp []api.GeoResponse)(api.GeoLocation,error){
 	var geo api.GeoLocation
 
 	result := geoResp[0]
@@ -25,7 +25,6 @@ func GeoJson(geoResp []api.GeoResponse, date []string)(api.GeoLocation,error){
 		Lat :lat,
 		Long:long,
 		Name : result.DisplayName,
-		Dates: date,
 	}
 // 	fmt.Printf("%+v\n", geo)
 //    fmt.Println(geo)
