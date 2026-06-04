@@ -7,15 +7,23 @@ import (
 	"net/http"
 	"net/url"
 	"time"
+	"os"
 )
 
 func GeoLocation(loc string) ([]api.GeoResponse, error) {
+
+	apiKey := os.Getenv("GeoCode_apiKey")
+
+	if apiKey == "" {
+		return nil, fmt.Errorf("GeoCode_apiKey not set")
+	}
+
 	var httpClient = &http.Client{
 		Timeout: 10 * time.Second,
 	}
 	
 	query := url.QueryEscape(loc)
-	address := fmt.Sprintf("https://nominatim.openstreetmap.org/search?q=%s&format=json&limit=1", query)
+	address := fmt.Sprintf("https://api.opencagedata.com/geocode/v1/json?q=%s&key=%s&language=en&pretty=1", query,apiKey)
 
 	req, err := http.NewRequest("GET", address, nil)
 	if err != nil {
@@ -34,13 +42,24 @@ func GeoLocation(loc string) ([]api.GeoResponse, error) {
 		return nil, fmt.Errorf("bad status %s", resp.Status)
 	}
 
-	var geoLocate []api.GeoResponse
+	var result api.OpenCageResponse
 
-	
-	err = json.NewDecoder(resp.Body).Decode(&geoLocate)
+	err = json.NewDecoder(resp.Body).Decode(&result)
 	if err != nil {
 		return nil, err
 	}
 
-	return geoLocate, nil
+	
+	var geoLocate []api.GeoResponse
+
+	for _, r := range result.Results {
+		geoLocate = append(geoLocate, api.GeoResponse{
+			Lat:         fmt.Sprintf("%f", r.Geometry.Lat),
+			Lon:         fmt.Sprintf("%f", r.Geometry.Lng),
+			DisplayName: r.Formatted,
+		})
+	}
+
+   return geoLocate, nil
+
 }

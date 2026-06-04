@@ -54,8 +54,11 @@ func ArtistHandler(w http.ResponseWriter, r *http.Request){
 
     for loc, date := range singleArtist.DateLocations{
 		
-		geo := controllers.CoordinatesMap[loc]
-
+		geo, ok := controllers.GetCoords(loc)
+		if !ok {
+			log.Printf("no coords for: %s", loc)
+			continue
+		}
 		
 		geo.Dates = date
 

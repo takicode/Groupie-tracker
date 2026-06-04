@@ -7,11 +7,18 @@ import (
    groupie "groupie-tracker/handlers"
    "groupie-tracker/api"
    "groupie-tracker/controllers"
+   "github.com/joho/godotenv"
 )
 
 
 func main(){
-  err := api.LoadData()
+
+  err := godotenv.Load()
+if err != nil {
+    log.Fatal("Error loading .env file")
+}
+
+  err = api.LoadData()
    if err != nil{
     log.Fatal(err)
   }
