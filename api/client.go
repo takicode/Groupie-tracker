@@ -5,20 +5,40 @@ import (
   "net/http"
   "encoding/json"
   "log"
+  "sync"
 )
 
 var artistsInfo []FullArtistInfo
 
 func LoadData()error{
-  artists, err :=getArtists()
-  if err != nil {
-    return nil
-  }
+  var wg sync.WaitGroup
 
-  relations, err := getRelations()
-  if err != nil {
-    return nil
-  }
+    var artists []Artist
+    var relations []Relation
+    var artistErr error
+    var relationErr error
+
+    wg.Add(2)
+
+    go func() {
+        defer wg.Done()
+        artists, artistErr = getArtists()
+    }()
+    go func() {
+        defer wg.Done()
+        relations, relationErr = getRelations()
+    }()
+
+    wg.Wait()
+
+    if artistErr != nil {
+        return artistErr
+    }
+
+    if relationErr != nil {
+        return relationErr
+    }
+  
 
   relMap := make(map[int]Relation)
 

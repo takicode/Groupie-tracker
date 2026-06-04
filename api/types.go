@@ -51,3 +51,17 @@ type ArtistPage struct{
   Artist    FullArtistInfo
   LocationJSON  template.JS
 }
+
+type OpenCageResponse struct {
+	Results []OpenCageResult `json:"results"`
+}
+
+type OpenCageResult struct {
+	Formatted string   `json:"formatted"`
+	Geometry  Geometry `json:"geometry"`
+}
+
+type Geometry struct {
+	Lat float64 `json:"lat"`
+	Lng float64 `json:"lng"`
+}
