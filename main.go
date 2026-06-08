@@ -8,43 +8,66 @@ import (
    "groupie-tracker/api"
    "groupie-tracker/controllers"
    "github.com/joho/godotenv"
+   "time"
 )
 
 
 func main(){
+  if err := godotenv.Load(); err != nil {
+    log.Println("No .env file, use environmental variable")
+  }
 
-  err := godotenv.Load()
-if err != nil {
-    log.Fatal("Error loading .env file")
-}
+  if err := initialize() err != nil{
+    log.Fatal(err)
+  } 
 
-  err = api.LoadData()
-   if err != nil{
+  port := os.Getenv("PORT")
+  if port == ""{
+    port = "8080"
+  }
+
+  mux := http.NewServeMux()
+  registerRoutes(mux)
+ 
+  server := &http.Server{
+     Addr :  ":" + port,
+     Handler : mux,
+     ReadTimeout : 10 * time.Second,
+     WriteTimeout : 10 * time.Second,
+     IdleTimeout : 60 * time.Second,
+  }
+
+  log.Printf("Server listening on port :%s", port)
+
+  err := server.ListenAndServe(":8080", mux); err != nil{
     log.Fatal(err)
   }
-  // to initiate locations coordinate
+}
+
+
+func initialize()error{
+  
+  log.Println("Loading artists data...")
+  
+  if err:= api.LoadData(); err !=nil{
+    return err
+  }
+  
+  log.Println("Loading coordinates cache...")
+
   locations := controllers.GetLoc()
-  // controllers.Coordinate(locations)
    
-if err := controllers.LoadOrBuildCache(locations); err != nil {
-    log.Fatal(err)
-}
-
-
-  http.HandleFunc("/artists", groupie.AllartistsHandler)
-  http.HandleFunc("/artist", groupie.ArtistHandler)
-  http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("./static"))))
-  
-  // Routes
-  http.HandleFunc("/", groupie.HomeHandler)
-  
-
- log.Println("Server listening on port 8080")
- err= http.ListenAndServe(":8080", nil)
-  if err != nil{
-    log.Fatal(err)
+  if err := controllers.LoadOrBuildCache(locations); err != nil {
+      return err
   }
+
+  return nil  
 }
 
 
-
+func registerRoutes(mux *http.ServeMux){
+  mux.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("./static"))))
+  mux.HandleFunc("/artists", groupie.AllartistsHandler)
+  mux.HandleFunc("/artist", groupie.ArtistHandler)
+  mux.HandleFunc("/", groupie.HomeHandler)
+}
