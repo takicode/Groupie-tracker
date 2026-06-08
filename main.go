@@ -9,7 +9,16 @@ import (
    "groupie-tracker/controllers"
    "github.com/joho/godotenv"
    "time"
+   "os"
+   "os/signal"
+   "syscall"
+   "context"
+
 )
+
+
+
+
 
 
 func main(){
@@ -17,7 +26,7 @@ func main(){
     log.Println("No .env file, use environmental variable")
   }
 
-  if err := initialize() err != nil{
+  if err := initialize(); err != nil{
     log.Fatal(err)
   } 
 
@@ -37,11 +46,25 @@ func main(){
      IdleTimeout : 60 * time.Second,
   }
 
-  log.Printf("Server listening on port :%s", port)
 
-  err := server.ListenAndServe(":8080", mux); err != nil{
-    log.Fatal(err)
+  go func(){
+    log.Printf("Server listening on port :%s", port)
+    if err := server.ListenAndServe(); err != nil && err == http.ErrServerClosed{
+      log.Fatal(err)
+    } 
+  }()
+  
+  quit := make(chan os.Signal, 1)
+  signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
+  <-quit
+  
+  cxt, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+  defer cancel()
+
+  if err := server.Shutdown(cxt); err !=nil{
+      log.Fatal("Server forced to shutdown:", err)
   }
+
 }
 
 

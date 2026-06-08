@@ -6,7 +6,13 @@ import (
   "encoding/json"
   "log"
   "sync"
+  "time"
 )
+
+
+var httpClient = &http.Client{
+  Timeout: 10*time.Second,
+}
 
 var artistsInfo []FullArtistInfo
 
@@ -24,6 +30,7 @@ func LoadData()error{
         defer wg.Done()
         artists, artistErr = getArtists()
     }()
+    
     go func() {
         defer wg.Done()
         relations, relationErr = getRelations()
@@ -38,7 +45,7 @@ func LoadData()error{
     if relationErr != nil {
         return relationErr
     }
-  
+   
 
   relMap := make(map[int]Relation)
 
@@ -70,7 +77,7 @@ func AllArtist ()[]FullArtistInfo{
 
 
 func getArtists()([]Artist, error){
-    data,err:= http.Get("https://groupietrackers.herokuapp.com/api/artists")
+    data,err:= httpClient.Get("https://groupietrackers.herokuapp.com/api/artists")
     if err != nil{
       return []Artist{}, err
     }
@@ -93,7 +100,7 @@ func getArtists()([]Artist, error){
 }
 
 func getRelations()([]Relation, error){
-    data,err:= http.Get("https://groupietrackers.herokuapp.com/api/relation")
+    data,err:= httpClient.Get("https://groupietrackers.herokuapp.com/api/relation")
     if err != nil{
       return []Relation{}, err
     }
