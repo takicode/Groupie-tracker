@@ -28,7 +28,7 @@ type FilterArtistInfo struct{
 
 
 
-
+ 
 func Pagination(w http.ResponseWriter, r *http.Request)FilterArtistInfo{
   search := r.URL.Query().Get("search")
   sort_by := r.URL.Query().Get("sort_by")
