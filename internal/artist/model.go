@@ -11,7 +11,7 @@ type Artist struct {
 
 type Relation struct {
 	ID            int                 `json:"id"`
-	DatesLocation map[string][]string `json:"datesLocations"`
+	DatesLocations map[string][]string `json:"datesLocations"`
 }
 
 type RelationIndex struct {

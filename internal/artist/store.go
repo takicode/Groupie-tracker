@@ -29,9 +29,10 @@ func (s *Store) Load(ctx context.Context)error {
 	relations []Relation
 	artistErr   error
 	relationErr error
-	var wg sync.WaitGroup
-	result := make([]FullArtistInfo,0,len(artists))
-	)
+	wg sync.WaitGroup
+)
+
+result := make([]FullArtistInfo,0,len(artists))
     
 	wg.Add(2)
 

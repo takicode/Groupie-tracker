@@ -1,7 +1,6 @@
 package artist
  
 import (
-	"fmt"
 	"strings"
 	"errors"
 )
@@ -12,7 +11,7 @@ type Service struct{
 	store ArtistStore
 }
 
-func NewService(store *ArtistStore) *Service{
+func NewService(store ArtistStore) *Service{
     return &Service{
 		store:store,
 	}
@@ -27,11 +26,11 @@ func (s *Service) Artists() []FullArtistInfo {
 }
 
 
-func(s *Service)ArtistByID(Id int)(FullArtistInfo, error){
+func(s *Service)ArtistByID(ID int)(FullArtistInfo, error){
    artists := s.store.Artists()
 
    for _, artist := range artists{
-		if artist.Id == Id{
+		if artist.ID == ID{
 			return artist, nil
 		}
    }
@@ -40,7 +39,7 @@ func(s *Service)ArtistByID(Id int)(FullArtistInfo, error){
 }
 
 
-func (s *Service)search(filter SearchFilter)[]FullArtistInfo{
+func (s *Service)Search(filter SearchFilter)[]FullArtistInfo{
    artists := s.store.Artists()
    result := make([]FullArtistInfo, 0)
 
