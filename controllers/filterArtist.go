@@ -55,8 +55,7 @@ func FilterArtist(w http.ResponseWriter, r *http.Request)[]api.FullArtistInfo{
 
 		if decadeFilter != ""{
 			DateCreated,_ := strconv.Atoi(decadeFilter)
-			
-
+		
 			if DateCreated != (artist.Artist.CreationDate/ 10) * 10 {
 				continue
 			}
