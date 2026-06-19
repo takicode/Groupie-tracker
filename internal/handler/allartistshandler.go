@@ -8,10 +8,6 @@ import (
 	"html/template"
 )
 
-// type Handler struct{
-// 	service ArtistService
-// 	templates *template.Template
-// }
 
 func NewHandler(templates *template.Template,service ArtistService) *Handler{
 	return &Handler{
@@ -20,32 +16,33 @@ func NewHandler(templates *template.Template,service ArtistService) *Handler{
 	}
 }
 
-// type ArtistServices interface{
-// 	Artists() []artist.FullArtistInfo 
-// 	ArtistByID(ID int)(artist.FullArtistInfo, error)
-// 	Search(filter artist.SearchFilter)[]artist.FullArtistInfo
-// }
-
 
 func (h *Handler) AllArtist( w http.ResponseWriter, r *http.Request){
+    // search
+	query := r.URL.Query().Get("search")
 
-	q := r.URL.Query().Get("search")
-	query := strings.TrimSpace(strings.ToLower(q))
+	// page number
+    pageString := r.URL.Query().Get("page")
+	pageNo, err:= strconv.Atoi(pageString)
+	if err != nil || pageNo < 1 {
+	  pageNo = 1
+	}
+
+
 	
-	var artists []artist.FullArtistInfo
+	var artists []artist.SearchResult
 
-   if query ==""{
-       artists = h.service.Artists()
-   }else{
-		filter := artist.SearchFilter{
+   
+	filter := artist.SearchFilter{
 		Query:query,
-		}
-		artists = h.service.Search(filter)
+		Page:pageNo,
+	}
+	artists = h.service.Search(filter)
 
-   }
+   
 
 	data:= HomePageData{
-		Artists:artists,
+		artists,
     	Search:query,
 	}
 
@@ -54,7 +51,6 @@ func (h *Handler) AllArtist( w http.ResponseWriter, r *http.Request){
 
 	if err != nil{
 		log.Printf("execute template: %v",err,)
-		// http.Error(w,"internal server error",http.StatusInternalServerError)
 		return
 	}
 

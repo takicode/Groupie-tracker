@@ -13,12 +13,12 @@ type Client struct{
 	baseURL string
 }
 
-func NewClient() *Client{
+func NewClient(BaseURL string) *Client{
 	return &Client{
 		httpClient:&http.Client{
 			Timeout:10 * time.Second,
 		},
-		baseURL:"https://groupietrackers.herokuapp.com/api",
+		baseURL:BaseURL,
 	}
 }
 
