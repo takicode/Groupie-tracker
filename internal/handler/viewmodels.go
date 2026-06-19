@@ -5,10 +5,12 @@ import(
 )
 
 type HomePageData struct{
-	Artists    []artist.FullArtistInfo
-    Search      string
-    CurrentPage int
-    TotalPages int
+	artist.SearchResult
+    Search string
+	Decade string
+	Location string
+	Members string
+	SortBy string
 }
 
 type ArtistPageData struct{

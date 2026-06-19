@@ -23,18 +23,38 @@ type FullArtistInfo struct {
 	DatesLocations map[string][]string
 }
 
+// incoming data
 type SearchFilter struct{
 	Query string
+	Page int
+    Decade string
+	Location string
+	Members string
+	SortBy string
+}
+// outgoing data
+type SearchResult struct {
+	PaginationInfo
+    Locations []string
+	Dates []int
 }
 
-type Pagination struct {
-	Page  int
-	Limit int
-	SortBy   string
-	SortDesc bool
+type PaginationInfo struct {
+	Artists []FullArtistInfo
+	CurrentPage int
+    TotalPages int
+    TotalArtists int
+    NextPage int
+    PrevPage int
+	Pages []int
+	Start int 
+    End int
+    PageNo int
 }
 
-type ArtistQuery struct {
-	Search SearchFilter
-	Page   Pagination
-}
+
+
+// type ArtistQuery struct {
+// 	Search SearchFilter
+// 	Page   Pagination
+// }
