@@ -1,6 +1,5 @@
 package artist
 
-
 import (
 	"context"
 	"net/http"
