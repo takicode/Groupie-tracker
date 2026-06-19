@@ -6,7 +6,8 @@ import (
    "log"
    "groupie-tracker/internal/handler"
    "groupie-tracker/internal/artist"
-   // "github.com/joho/godotenv"
+   "groupie-tracker/internal/config"
+   "github.com/joho/godotenv"
    "time"
    "os"
    "os/signal"
@@ -18,31 +19,20 @@ import (
 
 
 func main(){
-   // if err := godotenv.Load(); err != nil {
-   //    log.Println("No .env file, use environmental variable")
-   // }
-   // port := os.Getenv("PORT")
-   // if port == ""{
-   //   port = "8080"
-   // }
-
-   ctx := context.Background()
-  client := artist.NewClient()
-  store := artist.NewStore(client)
-  
-  if err := store.Load(ctx); err !=nil{
-   //  return err
-    log.Fatal(err)
+  if err := godotenv.Load(); err != nil {
+    log.Println("No .env file, use environmental variable")
   }
 
-//   if err := initialize(); err != nil{
-//   } 
-
+  cfg := config.Load()
+  port:= cfg.Port
+    
+  artistsHandler,singleArtistHandler,homeHandler := initialize(cfg)
+      
   mux := http.NewServeMux()
-  registerRoutes(mux,store)
+  registerRoutes(mux,artistsHandler,singleArtistHandler,homeHandler )
  
   server := &http.Server{
-     Addr :  ":" + "8080",
+     Addr :  ":" + port,
      Handler : mux,
      ReadTimeout : 10 * time.Second,
      WriteTimeout : 10 * time.Second,
@@ -51,7 +41,7 @@ func main(){
 
 
   go func(){
-    log.Printf("Server listening on port :%s", "8080")
+    log.Printf("Server listening on port :%s", port)
     if err := server.ListenAndServe(); err != nil && err != http.ErrServerClosed{
       log.Fatal(err)
     } 
@@ -71,27 +61,31 @@ func main(){
 }
 
 
-// func initialize()error{
-  
-//   log.Println("Loading artists data...")
-  
-//   return nil  
-// }
+func initialize(cfg *config.Config)(*handler.Handler, *handler.Handler, *handler.Handler){
 
-
-func registerRoutes(mux *http.ServeMux, store *artist.Store){
+  client := artist.NewClient(cfg.BaseURL)
+  store := artist.NewStore(client)
   service := artist.NewService(store)
-  temp := template.Must(template.ParseGlob("templates/*.html"))
+  ctx := context.Background()
+   
+  if err := store.Load(ctx); err !=nil{
+    log.Fatal(err)
+  }
 
+  temp := template.Must(template.ParseGlob("templates/*.html"))
   render := handler.NewRender(temp)
   artistsHandler := handler.NewHandler(temp, service)
 	singleArtistHandler := handler.NewArtistHandler(temp, service) 
 	homeHandler := handler.NewHomeHandler(temp,service,render)
 
+  return artistsHandler,singleArtistHandler,homeHandler
+}
 
+
+
+func registerRoutes(mux *http.ServeMux,artists *handler.Handler,artist *handler.Handler,home *handler.Handler){
   mux.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
-
-  mux.HandleFunc("/artists", artistsHandler.AllArtist)
-  mux.HandleFunc("/artist", singleArtistHandler.SingleArtist)
-  mux.HandleFunc("/", homeHandler.Home)
+  mux.HandleFunc("/artists", artists.AllArtist)
+  mux.HandleFunc("/artist", artist.SingleArtist)
+  mux.HandleFunc("/", home.Home)
 }
