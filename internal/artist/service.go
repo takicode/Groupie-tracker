@@ -2,10 +2,8 @@ package artist
  
 import (
 	"strings"
-	"errors"
 )
 
-var ErrArtistNotFound = errors.New("artist not found")
 
 type Service struct{
 	store ArtistStore

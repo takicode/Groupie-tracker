@@ -51,8 +51,8 @@ func main(){
 
 
   go func(){
-    log.Printf("Server listening on port :%s", 8080)
-    if err := server.ListenAndServe(); err != nil && err == http.ErrServerClosed{
+    log.Printf("Server listening on port :%s", "8080")
+    if err := server.ListenAndServe(); err != nil && err != http.ErrServerClosed{
       log.Fatal(err)
     } 
   }()
@@ -81,13 +81,17 @@ func main(){
 
 func registerRoutes(mux *http.ServeMux, store *artist.Store){
   service := artist.NewService(store)
-  temp := template.Must(template.New("index.html").ParseGlob("./templates/*.html"))
-  artist:=  handler.NewHandler(temp, service)
-   artists := handler.NewArtistHandler(temp, service)
-  h:= handler.NewHomeHandler(temp)
-  mux.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("./static"))))
+  temp := template.Must(template.ParseGlob("templates/*.html"))
 
-  mux.HandleFunc("/artists", artists.AllArtist)
-  mux.HandleFunc("/artist", artist.SingleArtist)
-  mux.HandleFunc("/", h.Home)
+  render := handler.NewRender(temp)
+  artistsHandler := handler.NewHandler(temp, service)
+	singleArtistHandler := handler.NewArtistHandler(temp, service) 
+	homeHandler := handler.NewHomeHandler(temp,service,render)
+
+
+  mux.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
+
+  mux.HandleFunc("/artists", artistsHandler.AllArtist)
+  mux.HandleFunc("/artist", singleArtistHandler.SingleArtist)
+  mux.HandleFunc("/", homeHandler.Home)
 }

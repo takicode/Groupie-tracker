@@ -1,21 +1,14 @@
 package handler
 
 
-
-
 import (
 	"html/template"
-	"net/http"
 	"groupie-tracker/internal/artist"
+	"net/http"
 	"strconv"
 	"log"
+	"errors"
 )
-
-
-type ArtistHandler struct{
-    service ArtistServices
-	templates template.Template
-}
 
 
 func NewArtistHandler(templates *template.Template,service ArtistService) *Handler{
@@ -25,19 +18,8 @@ func NewArtistHandler(templates *template.Template,service ArtistService) *Handl
 	}
 }
 
-type ArtistServices interface{
-	Artists() []artist.FullArtistInfo 
-	ArtistByID(ID int)(artist.FullArtistInfo, error)
-	Search(filter artist.SearchFilter)[]artist.FullArtistInfo
-}
 
-
-func(h *ArtistHandler) SingleArtist(w http.ResponseWriter, r *http.Request) {
-
-	if r.URL.Path != "/artist"{
-		http.Error(w, "Bad request", http.StatusBadRequest)
-		return 
-	}
+func(h *Handler)SingleArtist(w http.ResponseWriter, r *http.Request) {
 
 	q := r.URL.Query().Get("id")
 	id, err := strconv.Atoi(q)
@@ -47,10 +29,23 @@ func(h *ArtistHandler) SingleArtist(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	artist, err  := h.service.ArtistByID(id)
+	singleArtist, err  := h.service.ArtistByID(id)
 
-	data := ArtistData{
-		Artist:artist,
+	if err != nil {
+    render := NewRender(h.templates)
+
+    if errors.Is(err, artist.ErrArtistNotFound) {
+        render.Render404(w)
+        return
+    }
+
+    log.Printf("artist by id: %v", err)
+    render.Render500(w)
+    return
+}
+
+	data := ArtistPageData{
+		Artist:singleArtist,
 	}
 
 	err = h.templates.ExecuteTemplate(w, "artist.html", data)

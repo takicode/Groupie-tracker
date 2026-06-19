@@ -8,10 +8,10 @@ import (
 	"html/template"
 )
 
-type Handler struct{
-	service ArtistService
-	templates *template.Template
-}
+// type Handler struct{
+// 	service ArtistService
+// 	templates *template.Template
+// }
 
 func NewHandler(templates *template.Template,service ArtistService) *Handler{
 	return &Handler{
@@ -20,20 +20,15 @@ func NewHandler(templates *template.Template,service ArtistService) *Handler{
 	}
 }
 
-type ArtistService interface{
-	Artists() []artist.FullArtistInfo 
-	ArtistByID(ID int)(artist.FullArtistInfo, error)
-	Search(filter artist.SearchFilter)[]artist.FullArtistInfo
-}
+// type ArtistServices interface{
+// 	Artists() []artist.FullArtistInfo 
+// 	ArtistByID(ID int)(artist.FullArtistInfo, error)
+// 	Search(filter artist.SearchFilter)[]artist.FullArtistInfo
+// }
 
 
-func (h *Handler) Home( w http.ResponseWriter, r *http.Request){
-	
-	if r.URL.Path != "/"{
-		http.NotFound(w,r)
-		return
-	}
-	
+func (h *Handler) AllArtist( w http.ResponseWriter, r *http.Request){
+
 	q := r.URL.Query().Get("search")
 	query := strings.TrimSpace(strings.ToLower(q))
 	
@@ -54,11 +49,12 @@ func (h *Handler) Home( w http.ResponseWriter, r *http.Request){
     	Search:query,
 	}
 
-	err := h.templates.ExecuteTemplate(w, "index.html", data)
+
+	err := h.templates.ExecuteTemplate(w, "artists.html", data)
 
 	if err != nil{
 		log.Printf("execute template: %v",err,)
-		http.Error(w,"internal server error",http.StatusInternalServerError)
+		// http.Error(w,"internal server error",http.StatusInternalServerError)
 		return
 	}
 

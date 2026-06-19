@@ -11,6 +11,6 @@ type HomePageData struct{
     TotalPages int
 }
 
-type ArtistData struct{
+type ArtistPageData struct{
 	Artist artist.FullArtistInfo
 }

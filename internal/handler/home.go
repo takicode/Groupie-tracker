@@ -1,32 +1,47 @@
 package handler
 
 import (
-  "net/http"
-  "html/template"
-  "log"
+	"net/http"
+	"log"
+	"html/template"
+	"groupie-tracker/internal/artist"
 )
 
-type HomeHandler struct{
+type Handler struct{
 	templates *template.Template
+	service ArtistService
+	render *Render
 }
 
-
-func NewHomeHandler(templates *template.Template) *homeHandler{
-	return &homeHandler{
+func NewHomeHandler(templates *template.Template,service ArtistService,  render *Render) *Handler{
+	return &Handler{
 		templates:templates,
+		service:service,
+		render:render,
 	}
 }
 
-func(h *HomeHandler) Home(w http.ResponseWriter, r *http.Request){
-	if r.URL.Path != "/"{
-		h.render404(w)
+type ArtistService interface{
+	Artists() []artist.FullArtistInfo 
+	ArtistByID(ID int)(artist.FullArtistInfo, error)
+	Search(filter artist.SearchFilter)[]artist.FullArtistInfo
+}
+
+
+func (h *Handler) Home(w http.ResponseWriter, r *http.Request) {
+	
+	if r.URL.Path != "/" {
+		h.render.Render404(w)
 		return
 	}
-    
-    err := h.templates.ExecuteTemplate(w, "base.html", nil)
-   	if err != nil{
-		log.Printf("execute template: %v",err,)
-		http.Error(w,"internal server error",http.StatusInternalServerError)
+
+	err := h.templates.ExecuteTemplate(w, "base.html", nil)
+	if err != nil {
+
+		log.Printf("Error executing base template: %v", err)
+		h.render.Render500(w)
 		return
 	}
 }
+
+
