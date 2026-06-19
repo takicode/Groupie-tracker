@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/static/artist.css" />
+     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+     crossorigin=""></script>
+    <title>artist page</title>
+  </head>
+  <body>
+    <div class="page-wrap">
+      <nav>
+        <div class="navbar">
+          <a class="logo">Groupie <span class="tracker">tracker</span></a>
+          <ul class="links">
+            <li><a href="#members">Members</a></li>
+            <li><a href="#maps">Map</a></li>
+            <li><a href="#toursId">Tour dates</a></li>
+          </ul>
+          <a href="/artists" class="all">all artists</a>
+        </div>
+      </nav>
+      <main class="hero">
+        <div >
+          <div class="hero-container">
+            <div class="image-border">
+              <img src="{{.Artist.Image}}" class="hero-image"/>
+            </div>
+            <h1 class="artist-name">{{.Artist.Name}}</h1>
+          </div>
+          <div class="details">
+             <h3><span class="text">Est .</span>  {{.Artist.CreationDate}}</h3>
+             <h3><span class="text">First album</span>  {{.Artist.FirstAlbum}}</h3>
+             <h3><span class="text">member.</span>  {{len .Artist.Members}}</h3>
+             <h3><span class="text">Location</span>  {{len .Artist.DateLocations}}</h3>
+          </div>
+        </div>
+        <div>
+          <img src="/static/images/vinyl.svg" class="hero-svg"/>
+        </div>
+      </main>
+      <div id="members">
+        <article>
+          <h3>Members</h3>
+          <div class="music">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+          </div>                 
+        </article>
+        <section class="members">
+          <div>
+            {{range  .Artist.Members}}
+              <p><span class="initial">{{slice . 0 1}}</span>{{.}}</p>
+            {{end}}
+          </div>
+        </section>
+      </div>
+      <div id="maps">
+        <article class="tours" >
+          <h3>Map</h3>
+          <div class="music">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+          </div>                 
+        </article>
+        <section >
+          <div id="map">
+          </div>
+        </section>
+      </div>
+
+
+      
+      <div id="toursId">
+        <article class="tours" >
+          <h3>Tours</h3>
+          <div class="music">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+          </div>                 
+        </article>
+        <section class="dateLocation">
+          {{range $loc, $value := .Artist.DateLocations}}
+          <div class="tour-elements">
+            <div class="locations">
+              <p><span style="color: #ffa200; margin-right: 5px">&#x25C9;</span>{{$loc}}</p>
+              <p>{{len $value}} dates</p>
+              
+            </div>
+            <div class="dates">
+              {{range $value}}
+              <p>{{.}}</p>
+              {{end}}
+            </div>
+          </div>
+          {{end}}
+        </section>
+      </div>
+    </div>
+  </body>
+</html>
