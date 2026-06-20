@@ -3,6 +3,8 @@ package artist
 import (
 	"strings"
   "strconv"
+  "slices"
+  "cmp"
 )
 
 type Service struct {
@@ -38,228 +40,210 @@ func (s *Service) ArtistByID(ID int) (FullArtistInfo, error) {
 
 func (s *Service) Search(filter SearchFilter) SearchResult {
 	artists := s.store.Artists()
-	result := make([]FullArtistInfo, 0, len(artists))
   locations := getLocations(artists)
-  decades:=GetDecades(artists)
+  decades:=getDecades(artists)
   
-	query := strings.TrimSpace(strings.ToLower(filter.Query))
-  
-	if query == "" {
-    
-		return SearchResult{
-    PaginationInfo:paginate(filter.Page, artists, filter.SortBy),
-    Locations:locations,
-    Dates:decades,
-  }
-	}
+	result := make([]FullArtistInfo, 0, len(artists))
+	
 
 	for _, artist := range artists {
 		if matchArtist(filter, artist) {
 			result = append(result, artist)
 		}
 	}
-  pagination:= paginate(filter.Page, result, filter.SortBy)
+  
+  sortArtists(result, filter.SortBy)
+  pagination:= paginate(filter.Page, result)
 
 	return SearchResult{
-    PaginationInfo:pagination,
+    PaginatedArtists:pagination,
     Locations:locations,
     Dates:decades,
   }
 }
 
-func SortBy(result []FullArtistInfo, sortFilter string)[]FullArtistInfo{
-
-  for i := 0; i < len(result)-1; i++{
-		for j:= 0; j < len(result)-1-i; j++{
-	        if sortFilter == "A-Z" && result[j].Artist.Name > result[j+1].Artist.Name{
-                result[j], result[j+1] = result[j+1], result[j]
-			}
-
-			if sortFilter == "Z-A" && result[j].Artist.Name < result[j+1].Artist.Name{
-                result[j], result[j+1] = result[j+1], result[j]
-			}
-
-			if sortFilter == "New" && result[j].Artist.CreationDate < result[j+1].Artist.CreationDate{
-                result[j], result[j+1] = result[j+1], result[j]
-			}
-
-			if sortFilter == "Old" && result[j].Artist.CreationDate > result[j+1].Artist.CreationDate{
-                result[j], result[j+1] = result[j+1], result[j]
-			}
-		}
-	}
-  return result
+func sortArtists(result []FullArtistInfo, sortFilter string) {
+	switch sortFilter{
+  case "A-Z":
+      slices.SortFunc(result, func(a, b FullArtistInfo)int{
+        return cmp.Compare(a.Name, b.Name)
+      })
+  case "Z-A":
+      slices.SortFunc(result, func(a, b FullArtistInfo)int{
+        return cmp.Compare(b.Name, a.Name)
+      })
+  case "New":
+      slices.SortFunc(result, func(a, b FullArtistInfo)int{
+        return cmp.Compare(b.CreationDate, a.CreationDate)
+      })
+  case "Old":
+      slices.SortFunc(result, func(a, b FullArtistInfo)int{
+        return cmp.Compare(a.CreationDate, b.CreationDate)
+      })
+  }
 }
 
 
-func paginate(pageNum int, artists []FullArtistInfo, sortBy string) PaginationInfo {
+func paginate(pageNum int, artists []FullArtistInfo) PaginatedArtists {
 	limit := 9
 	totalArtists := len(artists)
+	totalPages := (totalArtists + limit - 1) / limit 
+	if totalPages == 0 {
+		totalPages = 1
+	}
 
-  if pageNum < 1 {
-    pageNum = 1
-}
-
-	var next int
-	var prev int
-
-  displayArtist := []FullArtistInfo{}
+	if pageNum < 1 {
+		pageNum = 1
+	} else if pageNum > totalPages {
+		pageNum = totalPages
+	}
 
 	start := (pageNum - 1) * limit
 	end := start + limit
-  
 	if end > totalArtists {
 		end = totalArtists
 	}
 
-	displayArtist = artists[start:end]
-
-	totalPages := totalArtists / limit
-	remainder := totalArtists % limit
-
-	if remainder != 0 {
-		totalPages += 1
+	displayArtist := []FullArtistInfo{}
+	if start < totalArtists {
+		displayArtist = artists[start:end]
 	}
 
-  if totalPages == 0 {
-    totalPages = 1
-}
-
-if pageNum > totalPages {
-  pageNum = totalPages
-}
 	pages := make([]int, totalPages)
-
-	for i := 0; i < len(pages); i++ {
+	for i := range pages {
 		pages[i] = i + 1
 	}
 
-	if pageNum <= 1 {
+	prev := pageNum - 1
+	if prev < 1 {
 		prev = 1
-	} else {
-		prev = pageNum - 1
 	}
 
-
-	if pageNum >= totalPages {
+	next := pageNum + 1
+	if next > totalPages {
 		next = totalPages
-	} else {
-		next = pageNum + 1
 	}
 
-  displayInfo := SortBy(displayArtist, sortBy)
-
-  return PaginationInfo{
-   Artists: displayInfo,
-   NextPage:next,
-   PrevPage:prev,
-   Pages:pages,
-   Start:start,
-   End:end,
-   TotalArtists:totalArtists,
-   PageNo:pageNum,
-   TotalPages:totalPages,
-}
-
+	return PaginatedArtists{
+		Artists:      displayArtist,
+		NextPage:     next,
+		PrevPage:     prev,
+		Pages:        pages,
+		Start:        start,
+		End:          end,
+		TotalArtists: totalArtists,
+		PageNo:       pageNum,
+		TotalPages:   totalPages,
+	}
 }
 
 func matchArtist(filter SearchFilter, artist FullArtistInfo) bool {
-
-	if strings.Contains(strings.ToLower(artist.Name), filter.Query) {
-		return true
-	}
-
-	for _, member := range artist.Members {
-		if strings.Contains(strings.ToLower(member), filter.Query) {
-			return true
-		}
-	}
-
-	for loc := range artist.DatesLocations {
-		if strings.Contains(strings.ToLower(loc), filter.Query) {
-			return true
-		}
-	}
-
-  if filter.Decade != ""{
-			DateCreated,_ := strconv.Atoi(filter.Decade)
-			if DateCreated == (artist.Artist.CreationDate/ 10) * 10 {
-				return true
-			}
-		}
-
-  for loc := range artist.DatesLocations{
-		if strings.Contains(loc,filter.Location ){
-			return true
-		}
-	}
-
-
-  if filter.Members != ""{
-			membersNo, _ :=strconv.Atoi(filter.Members)
-			if membersNo >= len(artist.Artist.Members){
-			 return true
-			}
-		}
-
+	
+	query := strings.TrimSpace(strings.ToLower(filter.Query))
+	if query != "" {
+		matchFound := strings.Contains(strings.ToLower(artist.Name), query)
 		
+		for _, member := range artist.Members {
+			if matchFound {
+				break
+			}
+			if strings.Contains(strings.ToLower(member), query) {
+				matchFound = true
+			}
+		}
+		for loc := range artist.DatesLocations {
+			if matchFound {
+				break
+			}
+			if strings.Contains(strings.ToLower(loc), query) {
+				matchFound = true
+			}
+		}
+		if !matchFound {
+			return false
+		}
+	}
 
-	return false
+
+	if filter.Location != "" {
+		locMatch := false
+		for loc := range artist.DatesLocations {
+			if strings.Contains(strings.ToLower(loc), strings.ToLower(filter.Location)) {
+				locMatch = true
+				break
+			}
+		}
+		if !locMatch {
+			return false
+		}
+	}
+
+	
+	if filter.Decade != "" {
+		targetDecade, err := strconv.Atoi(filter.Decade)
+    if err != nil {
+    return false
+    }
+		artistDecade := (artist.CreationDate / 10) * 10
+		if artistDecade != targetDecade {
+			return false
+		}
+	}
+
+	if filter.Members != "" {
+		membersNo, err:= strconv.Atoi(filter.Members)
+      if err != nil {
+      return false
+      }
+		if len(artist.Members) > membersNo {
+			return false
+		}
+	}
+
+	return true
 }
 
 
 func getLocations(artists []FullArtistInfo) []string{
   
   locMap := make(map[string]bool)
-	var locations []string
-
+  
 	for _, artist := range artists{
 		for loc := range artist.DatesLocations{
-			locMap[loc] = true
-		} 
-	}
-
+      locMap[loc] = true
+      } 
+    }
+    
+  locations := make([]string, 0, len(locMap))
 	for loc := range locMap{
         locations = append(locations, loc)
 	}
     
-	for i := 0; i < len(locations)-1; i++{
-		for j:= 0; j < len(locations)-1-i; j++{
-	        if  locations[j] > locations[j+1]{
-                locations[j], locations[j+1] = locations[j+1], locations[j]
-			}
-		}
-	}
-
-
+	slices.Sort(locations)
 	return locations
 }
 
 
 
 
-func GetDecades(artists []FullArtistInfo)[]int{
+func getDecades(artists []FullArtistInfo)[]int{
 
-    dateMap := make(map[int]bool)
-	var dates []int
-
+  dateMap := make(map[int]bool)
+  
 	for _, artist := range artists{
-		decade := (artist.Artist.CreationDate/ 10) * 10
+    decade := (artist.CreationDate/ 10) * 10
 		dateMap[decade] = true
 	}
-
+  
+  dates := make([]int, 0, len(dateMap))
 	for date := range dateMap{
         dates = append(dates, date)
 	}
 
 
-	for i := 0; i < len(dates)-1; i++{
-		for j:= 0; j < len(dates)-1-i; j++{
-	        if  dates[j] > dates[j+1]{
-                dates[j], dates[j+1] = dates[j+1], dates[j]
-			}
-		}
-	}	
+	slices.Sort(dates)
 
 	return dates
 }
+
+
