@@ -45,14 +45,14 @@ func(h *Handler)SingleArtist(w http.ResponseWriter, r *http.Request) {
 }
 
 	data := ArtistPageData{
-		Artist:singleArtist,
+		singleArtist,
 	}
 
 	err = h.templates.ExecuteTemplate(w, "artist.html", data)
 
 	if err != nil{
 		log.Printf("execute template: %v",err,)
-		http.Error(w,"internal server error",http.StatusInternalServerError)
+		// http.Error(w,"internal server error",http.StatusInternalServerError)
 		return
 	}
 	

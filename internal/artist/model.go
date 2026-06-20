@@ -34,12 +34,12 @@ type SearchFilter struct{
 }
 // outgoing data
 type SearchResult struct {
-	PaginationInfo
+	PaginatedArtists
     Locations []string
 	Dates []int
 }
 
-type PaginationInfo struct {
+type PaginatedArtists struct {
 	Artists []FullArtistInfo
 	CurrentPage int
     TotalPages int

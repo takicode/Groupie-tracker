@@ -14,5 +14,5 @@ type HomePageData struct{
 }
 
 type ArtistPageData struct{
-	Artist artist.FullArtistInfo
+	artist.FullArtistInfo
 }
