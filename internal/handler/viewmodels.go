@@ -15,4 +15,5 @@ type HomePageData struct{
 
 type ArtistPageData struct{
 	artist.FullArtistInfo
+	Coordinates template.JS
 }
