@@ -21,6 +21,7 @@ type RelationIndex struct {
 type FullArtistInfo struct {
 	Artist
 	DatesLocations map[string][]string
+	Coordinates map[string]GeoLocation
 }
 
 // incoming data
@@ -53,8 +54,8 @@ type PaginatedArtists struct {
 }
 
 
+type GeoLocation struct {
+    Lat float64 `json:"lat"`
+    Lon float64 `json:"lon"`
+}
 
-// type ArtistQuery struct {
-// 	Search SearchFilter
-// 	Page   Pagination
-// }
