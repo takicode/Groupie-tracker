@@ -3,13 +3,13 @@ package artist
 import (
 	"sync"
 	"context"
-	"log"
+	// "log"
 )
 
 type Store struct{
 	client ArtistClient
     artists []FullArtistInfo
-	geo GeoClient
+	// geo GeoClient
 }
 
 type ArtistClient interface{
@@ -17,15 +17,15 @@ type ArtistClient interface{
 	GetRelations(ctx context.Context)([]Relation, error)
 }
 
-type GeoClient interface{
-	GetCoordinates(ctx context.Context,location string) (GeoLocation, error)
-}
+// type GeoClient interface{
+// 	GetCoordinates(ctx context.Context,location string) (GeoLocation, error)
+// }
 
-func NewStore(client ArtistClient, geo GeoClient) *Store{
+func NewStore(client ArtistClient) *Store{
 	return &Store{
 		client:client,
 		artists:make([]FullArtistInfo, 0),
-		geo:geo,
+		// geo:geo,
 	}
 }
 
@@ -64,7 +64,7 @@ func (s *Store) Load(ctx context.Context)error {
 			
    result := make([]FullArtistInfo,0,len(artists))
    relMap := make(map[int]Relation, len(relations))
-   globalGeoCache := make(map[string]GeoLocation)
+//    globalGeoCache := make(map[string]GeoLocation)
 
    for _, rel := range relations{
 	    relMap[rel.ID] = rel
@@ -76,28 +76,28 @@ func (s *Store) Load(ctx context.Context)error {
 		continue
 	}
 
-	coords := make(map[string]GeoLocation)
+	// coords := make(map[string]GeoLocation)
 
-	for location := range rel.DatesLocations{
+	// for location := range rel.DatesLocations{
 
-			if geo,ok:=globalGeoCache[location]; ok{
-				coords[location] = geo
-				continue
-			}
+	// 		if geo,ok:=globalGeoCache[location]; ok{
+	// 			coords[location] = geo
+	// 			continue
+	// 		}
 
-			geo,err:= s.geo.GetCoordinates(ctx, location)
-			if err != nil{
-				log.Printf("error fetching coordinate", err)
-				continue
-			}
-			coords[location] = geo
-			globalGeoCache[location]=geo
-	}
+	// 		geo,err:= s.geo.GetCoordinates(ctx, location)
+	// 		if err != nil{
+	// 			log.Printf("error fetching coordinate", err)
+	// 			continue
+	// 		}
+	// 		coords[location] = geo
+	// 		globalGeoCache[location]=geo
+	// }
 
 	info := FullArtistInfo{
 		Artist:artist,
 		DatesLocations:rel.DatesLocations,
-		Coordinates:coords,
+		// Coordinates:coords,
 	}
 
      result = append(result, info)

@@ -55,7 +55,28 @@ type PaginatedArtists struct {
 
 
 type GeoLocation struct {
-    Lat float64 `json:"lat"`
-    Lon float64 `json:"lon"`
+    Lat float64 
+    Lon float64 
 }
 
+
+
+type openCageResponse struct{
+	Results []struct{
+		Geometry struct{
+			Lat float64 `json:"lat"`
+			Lng float64 `json:"lng"`
+		} `json:"geometry"`
+	} `json:"results"`
+}
+
+
+type GeoJob struct {
+    Location string
+}
+
+type GeoResult struct {
+    Location string
+    Geo      GeoLocation
+    Err      error
+}
