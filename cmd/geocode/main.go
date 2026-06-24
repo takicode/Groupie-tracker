@@ -41,36 +41,63 @@ func main(){
 	}
 	
 	jobs := make(chan string)
-	results := make(chan GeoResult)
-    var wg sync.WaitGroup
-	
-   for _, loc := range missing{
-        jobs <- loc
-    } 
-
-   for i = 0;i < 10; i++{
-	  wg.Add(1)
-      go worker(ctx,geoClient,jobs, results, &wg)
-   } 
-	wg.Wait()
-
-
-
-
-
+	results := make(chan artist.GeoResult)
+	var wg sync.WaitGroup
 
 	
-
-}
-
-
-func worker(ctx context.Context,geoClient *GeoClient, jobs <-chan string,results chan<- GeoResult,wg *sync.WaitGroup,
-){
-		defer wg.Done()
-		for loc := range jobs{
-
+	for i := 0; i < 10; i++{
+		wg.Add(1)
+		go worker(ctx,geoClient,jobs, results, &wg)
+	}
+	
+	go func(){
+		for _,locs := range missing{
+			jobs <- locs
 		}
-
 		close(jobs)
-	  
+	}()
+   
+	go func(){
+		wg.Wait()
+		close(results)
+	}()
+
+  
+   for r :=range results{
+	   if r.Err != nil {
+		log.Printf("error getting coordinate:%v", err)
+    	continue
+		}
+		coords[r.Location]=r.Geo
+	}
+   
+	err = artist.SaveCoordinates(coords)
+
+	if err != nil{
+		log.Fatalf("unable to save coordinate:%v", err)
+	}
 }
+	
+
+func worker(ctx context.Context,geoClient *artist.GeoClient, jobs <-chan string,results chan<- artist.GeoResult,wg *sync.WaitGroup,
+){
+	defer wg.Done()
+	
+	for loc := range jobs{
+        geo,err := geoClient.GetCoordinates(ctx,loc)
+
+		results <- artist.GeoResult{
+			Location:loc,
+            Geo:geo,
+			Err:err,
+		}
+    } 
+	
+	
+}
+
+
+
+
+
+
