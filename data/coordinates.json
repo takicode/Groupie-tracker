@@ -1,0 +1,62 @@
+{
+ "aalborg-denmark": {
+  "Lat": 57.0462626,
+  "Lon": 9.9215263
+ },
+ "aarhus-denmark": {
+  "Lat": 56.1496278,
+  "Lon": 10.2134046
+ },
+ "aberdeen-uk": {
+  "Lat": 57.1482429,
+  "Lon": -2.0928095
+ },
+ "abu_dhabi-united_arab_emirates": {
+  "Lat": 24.4538352,
+  "Lon": 54.3774014
+ },
+ "alabama-usa": {
+  "Lat": 33.2588817,
+  "Lon": -86.8295337
+ },
+ "amityville-usa": {
+  "Lat": 40.6789893,
+  "Lon": -73.4170673
+ },
+ "amsterdam-netherlands": {
+  "Lat": 52.3730796,
+  "Lon": 4.8924534
+ },
+ "anaheim-usa": {
+  "Lat": 33.8347516,
+  "Lon": -117.911732
+ },
+ "antwerp-belgium": {
+  "Lat": 51.2211097,
+  "Lon": 4.3997081
+ },
+ "arizona-usa": {
+  "Lat": 34.395342,
+  "Lon": -111.763275
+ },
+ "arras-france": {
+  "Lat": 50.291048,
+  "Lon": 2.7772211
+ },
+ "athens-greece": {
+  "Lat": 37.9755648,
+  "Lon": 23.7348324
+ },
+ "atlanta-usa": {
+  "Lat": 33.7544657,
+  "Lon": -84.3898151
+ },
+ "auckland-new_zealand": {
+  "Lat": -36.852095,
+  "Lon": 174.7631803
+ },
+ "bangkok-thailand": {
+  "Lat": 13.7524938,
+  "Lon": 100.4935089
+ }
+}
