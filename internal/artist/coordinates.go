@@ -19,6 +19,10 @@ func LoadCoordinates() (CoordinateMap, error) {
 		return CoordinateMap{}, err
 	}
 
+	if len(file) == 0{
+		return CoordinateMap{}, nil
+	}
+
 	coord := make(CoordinateMap)
 
 	err = json.Unmarshal(file, &coord)

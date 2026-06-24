@@ -7,6 +7,7 @@ import(
 	"net/url"
 	"encoding/json"
 	"fmt"
+	"strings"
 )
 
 type GeoClient struct{
@@ -20,7 +21,7 @@ func NewGeoClient(apiKey string, baseApiUrl string) *GeoClient{
 			client:&http.Client{
 				Timeout:10 *time.Second,
 			},
-			apiKey:apiKey,
+			apiKey:strings.TrimSpace(apiKey),
 			baseApiUrl:baseApiUrl,
    }
 }
@@ -32,8 +33,7 @@ func (g *GeoClient)GetCoordinates(ctx context.Context,location string) (GeoLocat
    params.Set("key", g.apiKey)
 
    endpoint:= g.baseApiUrl + "?" + params.Encode()
-
-   
+  
    req, err:= http.NewRequestWithContext(ctx,http.MethodGet,endpoint, nil )
 
    if err != nil {
@@ -50,9 +50,10 @@ func (g *GeoClient)GetCoordinates(ctx context.Context,location string) (GeoLocat
 
 	defer resp.Body.Close()
 
-	if resp.StatusCode != http.StatusOK{
-		 return GeoLocation{}, err
+	if resp.StatusCode != http.StatusOK {
+		return GeoLocation{}, fmt.Errorf("api request failed with status: %s (code %d)", resp.Status, resp.StatusCode)
 	}
+
 
 	var data openCageResponse 
 
