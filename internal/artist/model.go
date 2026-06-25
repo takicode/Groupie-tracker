@@ -52,12 +52,10 @@ type PaginatedArtists struct {
     PageNo int
 }
 
-
 type GeoLocation struct {
-    Lat float64 
-    Lon float64 
+    Lat float64 `json:"lat"`
+    Lon float64 `json:"lon"`
 }
-
 
 
 type openCageResponse struct{

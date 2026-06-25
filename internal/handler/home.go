@@ -23,7 +23,7 @@ func NewHomeHandler(templates *template.Template,service ArtistService,  render 
 
 type ArtistService interface{
 	Artists() []artist.FullArtistInfo 
-	ArtistByID(ID int)(artist.FullArtistInfo, error)
+	ArtistByID(ID int)(artist.ArtistDetails, error)
 	Search(filter artist.SearchFilter)artist.SearchResult
 }
 

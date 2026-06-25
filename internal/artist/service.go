@@ -44,7 +44,7 @@ func (s *Service) ArtistByID(ID int) (ArtistDetails, error) {
 
 	return ArtistDetails{
 		artist,
-		Coordinates:coords,
+		coords,
 	}, nil
 	
 }
