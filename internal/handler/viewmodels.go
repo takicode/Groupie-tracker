@@ -2,6 +2,7 @@ package handler
 
 import(
 	"groupie-tracker/internal/artist"
+	"html/template"
 )
 
 type HomePageData struct{
@@ -14,6 +15,6 @@ type HomePageData struct{
 }
 
 type ArtistPageData struct{
-	artist.FullArtistInfo
-	// Coordinates template.JS
+	artist.ArtistDetails
+	Coordinates template.JS
 }

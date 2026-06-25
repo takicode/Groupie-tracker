@@ -3,13 +3,13 @@ package artist
 import (
 	"sync"
 	"context"
-	// "log"
+	"log"
 )
 
 type Store struct{
 	client ArtistClient
     artists []FullArtistInfo
-	// geo GeoClient
+	coord CoordinateMap
 }
 
 type ArtistClient interface{
@@ -17,15 +17,11 @@ type ArtistClient interface{
 	GetRelations(ctx context.Context)([]Relation, error)
 }
 
-// type GeoClient interface{
-// 	GetCoordinates(ctx context.Context,location string) (GeoLocation, error)
-// }
-
 func NewStore(client ArtistClient) *Store{
 	return &Store{
 		client:client,
 		artists:make([]FullArtistInfo, 0),
-		// geo:geo,
+		coord: make(CoordinateMap),
 	}
 }
 
@@ -39,6 +35,10 @@ func (s *Store) Load(ctx context.Context)error {
 	wg sync.WaitGroup
 )
 
+	coords,err:= LoadCoordinates()
+	if err != nil {
+        return err
+    }
 
 	wg.Add(2)
 
@@ -64,45 +64,31 @@ func (s *Store) Load(ctx context.Context)error {
 			
    result := make([]FullArtistInfo,0,len(artists))
    relMap := make(map[int]Relation, len(relations))
-//    globalGeoCache := make(map[string]GeoLocation)
+
 
    for _, rel := range relations{
 	    relMap[rel.ID] = rel
    }
 
    for _, artist := range artists{
-	rel, ok:=relMap[artist.ID]
-	if !ok{
-		continue
+		rel, ok:=relMap[artist.ID]
+		if !ok{
+			continue
+		}
+
+		if err != nil{
+			log.Printf("error fetching coordinate:%v", err)
+			return err
+		}
+
+		info := FullArtistInfo{
+			Artist:artist,
+			DatesLocations:rel.DatesLocations,
+		}
+     	result = append(result, info)
 	}
 
-	// coords := make(map[string]GeoLocation)
-
-	// for location := range rel.DatesLocations{
-
-	// 		if geo,ok:=globalGeoCache[location]; ok{
-	// 			coords[location] = geo
-	// 			continue
-	// 		}
-
-	// 		geo,err:= s.geo.GetCoordinates(ctx, location)
-	// 		if err != nil{
-	// 			log.Printf("error fetching coordinate", err)
-	// 			continue
-	// 		}
-	// 		coords[location] = geo
-	// 		globalGeoCache[location]=geo
-	// }
-
-	info := FullArtistInfo{
-		Artist:artist,
-		DatesLocations:rel.DatesLocations,
-		// Coordinates:coords,
-	}
-
-     result = append(result, info)
-
-	}
+	s.coord = coords
 	s.artists = result
     return nil
 }
@@ -111,4 +97,27 @@ func (s *Store) Artists() []FullArtistInfo{
       result := make([]FullArtistInfo, len(s.artists))
 	  copy(result, s.artists)
 	  return result
-   }
+}
+
+func (s *Store) ArtistID(ID int) (FullArtistInfo, error){
+    for _, artist := range s.artists {
+		if artist.ID == ID {
+            return artist, nil
+		}
+	}
+	return FullArtistInfo{}, ErrArtistNotFound
+}
+
+func (s *Store) CoordinatesForLocations(locations []string) (map[string]GeoLocation){
+	result := make(map[string]GeoLocation)
+	for _, loc := range locations{
+		geo, ok := s.coord[loc]
+		if !ok{
+			continue
+		}
+		result[loc] = geo 
+	}
+
+	return result
+}
+

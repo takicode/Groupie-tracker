@@ -19,27 +19,39 @@ func NewService(store ArtistStore) *Service {
 
 type ArtistStore interface {
 	Artists() []FullArtistInfo
+	ArtistID(ID int) (FullArtistInfo, error)
+	CoordinatesForLocations(locations []string,) (map[string]GeoLocation)
 }
 
 func (s *Service) Artists() []FullArtistInfo {
 	return s.store.Artists()
 }
 
-func (s *Service) ArtistByID(ID int) (FullArtistInfo, error) {
-	artists := s.store.Artists()
+func (s *Service) ArtistByID(ID int) (ArtistDetails, error) {
+	artist, err := s.store.ArtistID(ID)
+	if err != nil{
+		return ArtistDetails{},err 
+	}
+   
+	var locations  []string
 
-	for _, artist := range artists {
-		if artist.ID == ID {
-			return artist, nil
-		}
+	for loc := range artist.DatesLocations{
+		locations = append(locations, loc)
 	}
 
-	return FullArtistInfo{}, ErrArtistNotFound
+	coords := s.store.CoordinatesForLocations(locations)
+
+
+	return ArtistDetails{
+		artist,
+		Coordinates:coords,
+	}, nil
+	
 }
 
 
 func (s *Service) Search(filter SearchFilter) SearchResult {
-	artists := s.store.Artists()
+  artists := s.store.Artists()
   locations := getLocations(artists)
   decades:=getDecades(artists)
   

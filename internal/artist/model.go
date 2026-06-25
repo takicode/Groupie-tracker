@@ -21,7 +21,6 @@ type RelationIndex struct {
 type FullArtistInfo struct {
 	Artist
 	DatesLocations map[string][]string
-	Coordinates map[string]GeoLocation
 }
 
 // incoming data
@@ -79,4 +78,9 @@ type GeoResult struct {
     Location string
     Geo      GeoLocation
     Err      error
+}
+
+type ArtistDetails struct {
+    FullArtistInfo
+	Coordinates map[string]GeoLocation
 }

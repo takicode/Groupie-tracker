@@ -1,0 +1,758 @@
+{
+ "aalborg-denmark": {
+  "Lat": 57.0462626,
+  "Lon": 9.9215263
+ },
+ "aarhus-denmark": {
+  "Lat": 56.1496278,
+  "Lon": 10.2134046
+ },
+ "aberdeen-uk": {
+  "Lat": 57.1482429,
+  "Lon": -2.0928095
+ },
+ "abu_dhabi-united_arab_emirates": {
+  "Lat": 24.4538352,
+  "Lon": 54.3774014
+ },
+ "alabama-usa": {
+  "Lat": 33.2588817,
+  "Lon": -86.8295337
+ },
+ "amityville-usa": {
+  "Lat": 40.6789893,
+  "Lon": -73.4170673
+ },
+ "amsterdam-netherlands": {
+  "Lat": 52.3730796,
+  "Lon": 4.8924534
+ },
+ "anaheim-usa": {
+  "Lat": 33.8347516,
+  "Lon": -117.911732
+ },
+ "antwerp-belgium": {
+  "Lat": 51.2211097,
+  "Lon": 4.3997081
+ },
+ "arizona-usa": {
+  "Lat": 34.395342,
+  "Lon": -111.763275
+ },
+ "arras-france": {
+  "Lat": 50.291048,
+  "Lon": 2.7772211
+ },
+ "athens-greece": {
+  "Lat": 37.9755648,
+  "Lon": 23.7348324
+ },
+ "atlanta-usa": {
+  "Lat": 33.7544657,
+  "Lon": -84.3898151
+ },
+ "auckland-new_zealand": {
+  "Lat": -36.852095,
+  "Lon": 174.7631803
+ },
+ "bangkok-thailand": {
+  "Lat": 13.7524938,
+  "Lon": 100.4935089
+ },
+ "barcelona-spain": {
+  "Lat": 41.3825802,
+  "Lon": 2.177073
+ },
+ "belo_horizonte-brazil": {
+  "Lat": -19.9227318,
+  "Lon": -43.9450948
+ },
+ "berlin-germany": {
+  "Lat": 52.5173885,
+  "Lon": 13.3951309
+ },
+ "berwyn-usa": {
+  "Lat": 41.8505874,
+  "Lon": -87.7936685
+ },
+ "bilbao-spain": {
+  "Lat": 43.2630018,
+  "Lon": -2.9350039
+ },
+ "birmingham-uk": {
+  "Lat": 52.4948994,
+  "Lon": -1.8518439
+ },
+ "bogota-colombia": {
+  "Lat": 4.6533817,
+  "Lon": -74.0836331
+ },
+ "boston-usa": {
+  "Lat": 42.3588336,
+  "Lon": -71.0578303
+ },
+ "boulogne_billancourt-france": {
+  "Lat": 48.8356649,
+  "Lon": 2.240206
+ },
+ "brasilia-brazil": {
+  "Lat": -15.7939869,
+  "Lon": -47.8828
+ },
+ "bratislava-slovakia": {
+  "Lat": 48.1516988,
+  "Lon": 17.1093063
+ },
+ "brisbane-australia": {
+  "Lat": -27.4689623,
+  "Lon": 153.0235009
+ },
+ "brixton-uk": {
+  "Lat": 51.4633914,
+  "Lon": -0.1148023
+ },
+ "brooklyn-usa": {
+  "Lat": 40.6526006,
+  "Lon": -73.9497211
+ },
+ "budapest-hungary": {
+  "Lat": 47.4978789,
+  "Lon": 19.0402383
+ },
+ "buenos_aires-argentina": {
+  "Lat": 45.4838459,
+  "Lon": 9.2147675
+ },
+ "burriana-spain": {
+  "Lat": 39.8876912,
+  "Lon": -0.0846321
+ },
+ "burswood-australia": {
+  "Lat": -31.9602196,
+  "Lon": 115.8962701
+ },
+ "california-usa": {
+  "Lat": 36.7014631,
+  "Lon": -118.755997
+ },
+ "canton-usa": {
+  "Lat": 40.7985464,
+  "Lon": -81.3749508
+ },
+ "cardiff-uk": {
+  "Lat": 51.4816546,
+  "Lon": -3.1791934
+ },
+ "changzhou-china": {
+  "Lat": 31.8122623,
+  "Lon": 119.9691539
+ },
+ "charlotte-usa": {
+  "Lat": 35.2272086,
+  "Lon": -80.8430827
+ },
+ "chicago-usa": {
+  "Lat": 41.8755616,
+  "Lon": -87.6244212
+ },
+ "cincinnati-usa": {
+  "Lat": 39.1012809,
+  "Lon": -84.5127405
+ },
+ "cleveland-usa": {
+  "Lat": 41.4996574,
+  "Lon": -81.6936772
+ },
+ "colorado-usa": {
+  "Lat": 38.7251776,
+  "Lon": -105.607716
+ },
+ "columbia-usa": {
+  "Lat": 34.000754,
+  "Lon": -81.0352313
+ },
+ "copenhagen-denmark": {
+  "Lat": 55.6867243,
+  "Lon": 12.5700724
+ },
+ "cuxhaven-germany": {
+  "Lat": 53.86878,
+  "Lon": 8.698286
+ },
+ "dallas-usa": {
+  "Lat": 32.7762719,
+  "Lon": -96.7968559
+ },
+ "del_mar-usa": {
+  "Lat": 32.9594891,
+  "Lon": -117.2653146
+ },
+ "detroit-usa": {
+  "Lat": 42.3315509,
+  "Lon": -83.0466403
+ },
+ "doha-qatar": {
+  "Lat": 25.3108807,
+  "Lon": 51.5081812
+ },
+ "dubai-united_arab_emirates": {
+  "Lat": 25.0742823,
+  "Lon": 55.1885387
+ },
+ "dublin-ireland": {
+  "Lat": 53.3493795,
+  "Lon": -6.2605593
+ },
+ "dunedin-new_zealand": {
+  "Lat": -45.8740984,
+  "Lon": 170.5035755
+ },
+ "dusseldorf-germany": {
+  "Lat": 51.2254018,
+  "Lon": 6.7763137
+ },
+ "eindhoven-netherlands": {
+  "Lat": 51.4392648,
+  "Lon": 5.478633
+ },
+ "florence-italy": {
+  "Lat": 43.7697955,
+  "Lon": 11.2556404
+ },
+ "florida-usa": {
+  "Lat": 27.7567667,
+  "Lon": -81.4639835
+ },
+ "frankfurt-germany": {
+  "Lat": 50.1106444,
+  "Lon": 8.6820917
+ },
+ "frauenfeld-switzerland": {
+  "Lat": 47.5561915,
+  "Lon": 8.8963347
+ },
+ "freyming_merlebach-france": {
+  "Lat": 49.1469437,
+  "Lon": 6.8184829
+ },
+ "gdynia-poland": {
+  "Lat": 54.5164982,
+  "Lon": 18.5402738
+ },
+ "georgia-usa": {
+  "Lat": 32.3293809,
+  "Lon": -83.1137366
+ },
+ "glasgow-uk": {
+  "Lat": 55.861155,
+  "Lon": -4.2501687
+ },
+ "gothenburg-sweden": {
+  "Lat": 57.7072326,
+  "Lon": 11.9670171
+ },
+ "grand_rapids-usa": {
+  "Lat": 42.9632425,
+  "Lon": -85.6678639
+ },
+ "groningen-netherlands": {
+  "Lat": 53.2190652,
+  "Lon": 6.5680077
+ },
+ "hamburg-germany": {
+  "Lat": 53.5501721,
+  "Lon": 10.0013165
+ },
+ "hershey-usa": {
+  "Lat": 40.2854881,
+  "Lon": -76.6506001
+ },
+ "hong_kong-china": {
+  "Lat": 22.3492155,
+  "Lon": 114.1857978
+ },
+ "houston-usa": {
+  "Lat": 29.7589382,
+  "Lon": -95.3676974
+ },
+ "huizhou-china": {
+  "Lat": 23.1125153,
+  "Lon": 114.4127007
+ },
+ "illinois-usa": {
+  "Lat": 40.0796606,
+  "Lon": -89.4337288
+ },
+ "imola-italy": {
+  "Lat": 44.3535145,
+  "Lon": 11.7141233
+ },
+ "indianapolis-usa": {
+  "Lat": 39.7683331,
+  "Lon": -86.1583502
+ },
+ "inglewood-usa": {
+  "Lat": 33.9562003,
+  "Lon": -118.353132
+ },
+ "jakarta-indonesia": {
+  "Lat": -6.1754049,
+  "Lon": 106.827168
+ },
+ "kansas_city-usa": {
+  "Lat": 39.100105,
+  "Lon": -94.5781416
+ },
+ "klagenfurt-austria": {
+  "Lat": 46.623943,
+  "Lon": 14.3075976
+ },
+ "krakow-poland": {
+  "Lat": 50.0619474,
+  "Lon": 19.9368564
+ },
+ "la_plata-argentina": {
+  "Lat": -34.9206797,
+  "Lon": -57.9537638
+ },
+ "landgraaf-netherlands": {
+  "Lat": 50.9080845,
+  "Lon": 6.0264604
+ },
+ "las_vegas-usa": {
+  "Lat": 36.1674263,
+  "Lon": -115.1484131
+ },
+ "lausanne-switzerland": {
+  "Lat": 46.5218269,
+  "Lon": 6.6327025
+ },
+ "leipzig-germany": {
+  "Lat": 51.3406321,
+  "Lon": 12.3747329
+ },
+ "lima-peru": {
+  "Lat": -23.5332023,
+  "Lon": -46.6642327
+ },
+ "lisbon-portugal": {
+  "Lat": 38.7077507,
+  "Lon": -9.1365919
+ },
+ "london-uk": {
+  "Lat": 51.5074456,
+  "Lon": -0.1277653
+ },
+ "los_angeles-usa": {
+  "Lat": 52.5362296,
+  "Lon": 13.5688341
+ },
+ "lyon-france": {
+  "Lat": 45.7578137,
+  "Lon": 4.8320114
+ },
+ "madison-usa": {
+  "Lat": 43.07469,
+  "Lon": -89.3841663
+ },
+ "madrid-spain": {
+  "Lat": 40.416782,
+  "Lon": -3.703507
+ },
+ "maine-usa": {
+  "Lat": 45.709097,
+  "Lon": -68.8590201
+ },
+ "manchester-uk": {
+  "Lat": 53.4424618,
+  "Lon": -2.2324547
+ },
+ "manila-philippines": {
+  "Lat": 14.5904492,
+  "Lon": 120.9803621
+ },
+ "mannheim-germany": {
+  "Lat": 49.4892913,
+  "Lon": 8.4673098
+ },
+ "massachusetts-usa": {
+  "Lat": 42.3788774,
+  "Lon": -72.032366
+ },
+ "melbourne-australia": {
+  "Lat": -37.8142454,
+  "Lon": 144.9631732
+ },
+ "merkers-germany": {
+  "Lat": 50.8241612,
+  "Lon": 10.1176283
+ },
+ "mexico_city-mexico": {
+  "Lat": 19.4326296,
+  "Lon": -99.1331785
+ },
+ "michigan-usa": {
+  "Lat": 43.6211955,
+  "Lon": -84.6824346
+ },
+ "milan-italy": {
+  "Lat": 45.4641943,
+  "Lon": 9.1896346
+ },
+ "minneapolis-usa": {
+  "Lat": 44.9772995,
+  "Lon": -93.2654692
+ },
+ "minnesota-usa": {
+  "Lat": 45.9896587,
+  "Lon": -94.6113288
+ },
+ "minsk-belarus": {
+  "Lat": 53.9024716,
+  "Lon": 27.5618225
+ },
+ "missouri-usa": {
+  "Lat": 38.7604815,
+  "Lon": -92.5617875
+ },
+ "monchengladbach-germany": {
+  "Lat": 51.1947131,
+  "Lon": 6.4353792
+ },
+ "monterrey-mexico": {
+  "Lat": -33.525743,
+  "Lon": -70.5808301
+ },
+ "montreal-canada": {
+  "Lat": 45.5031824,
+  "Lon": -73.5698065
+ },
+ "montreal-usa": {
+  "Lat": 37.9689254,
+  "Lon": -92.5921247
+ },
+ "mumbai-india": {
+  "Lat": 19.054999,
+  "Lon": 72.8692035
+ },
+ "munich-germany": {
+  "Lat": 48.1371079,
+  "Lon": 11.5753822
+ },
+ "nagoya-japan": {
+  "Lat": 36.1251825,
+  "Lon": -79.9046807
+ },
+ "napoca-romania": {
+  "Lat": 46.769379,
+  "Lon": 23.5899542
+ },
+ "nevada-usa": {
+  "Lat": 39.5158825,
+  "Lon": -116.853722
+ },
+ "new_hampshire-usa": {
+  "Lat": 43.4849133,
+  "Lon": -71.6553992
+ },
+ "new_orleans-usa": {
+  "Lat": 29.9561422,
+  "Lon": -90.0733934
+ },
+ "new_south_wales-australia": {
+  "Lat": -32.1629515,
+  "Lon": 147.0320566
+ },
+ "new_york-usa": {
+  "Lat": 40.7127281,
+  "Lon": -74.0060152
+ },
+ "newark-usa": {
+  "Lat": 40.735657,
+  "Lon": -74.1723667
+ },
+ "nickelsdorf-austria": {
+  "Lat": 47.9403019,
+  "Lon": 17.0661763
+ },
+ "nimes-france": {
+  "Lat": 43.8374249,
+  "Lon": 4.3600687
+ },
+ "north_carolina-usa": {
+  "Lat": 35.6729639,
+  "Lon": -79.0392919
+ },
+ "noumea-new_caledonia": {
+  "Lat": -22.2745264,
+  "Lon": 166.442419
+ },
+ "oakland-usa": {
+  "Lat": 37.8044557,
+  "Lon": -122.271356
+ },
+ "oklahoma-usa": {
+  "Lat": 34.9550817,
+  "Lon": -97.2684063
+ },
+ "omaha-usa": {
+  "Lat": 41.2587459,
+  "Lon": -95.9383758
+ },
+ "oregon-usa": {
+  "Lat": 43.9792797,
+  "Lon": -120.737257
+ },
+ "osaka-japan": {
+  "Lat": 40.6932715,
+  "Lon": -111.9545824
+ },
+ "oslo-norway": {
+  "Lat": 59.9133301,
+  "Lon": 10.7389701
+ },
+ "ostrava-czechia": {
+  "Lat": 49.8354045,
+  "Lon": 18.292978
+ },
+ "oulu-finland": {
+  "Lat": 65.0117914,
+  "Lon": 25.4701973
+ },
+ "pagney_derriere_barine-france": {
+  "Lat": 48.6943,
+  "Lon": 5.8447
+ },
+ "papeete-french_polynesia": {
+  "Lat": -17.5373835,
+  "Lon": -149.5659964
+ },
+ "paris-france": {
+  "Lat": 48.8588897,
+  "Lon": 2.320041
+ },
+ "pennsylvania-usa": {
+  "Lat": 40.9699889,
+  "Lon": -77.7278831
+ },
+ "penrose-new_zealand": {
+  "Lat": -36.9111443,
+  "Lon": 174.8147813
+ },
+ "philadelphia-usa": {
+  "Lat": 39.9527237,
+  "Lon": -75.1635262
+ },
+ "pico_rivera-usa": {
+  "Lat": 33.9830688,
+  "Lon": -118.096735
+ },
+ "pittsburgh-usa": {
+  "Lat": 40.4406968,
+  "Lon": -80.0025666
+ },
+ "playa_del_carmen-mexico": {
+  "Lat": 20.6461095,
+  "Lon": -87.0809021
+ },
+ "porto_alegre-brazil": {
+  "Lat": -30.0324999,
+  "Lon": -51.2303767
+ },
+ "prague-czechia": {
+  "Lat": 50.0874654,
+  "Lon": 14.4212535
+ },
+ "quebec-canada": {
+  "Lat": 52.4760892,
+  "Lon": -71.8258668
+ },
+ "queensland-australia": {
+  "Lat": -22.1646782,
+  "Lon": 144.5844903
+ },
+ "recife-brazil": {
+  "Lat": -8.0584933,
+  "Lon": -34.8848193
+ },
+ "rio_de_janeiro-brazil": {
+  "Lat": -22.9110137,
+  "Lon": -43.2093727
+ },
+ "riyadh-saudi_arabia": {
+  "Lat": 24.638916,
+  "Lon": 46.7160104
+ },
+ "rosemont-usa": {
+  "Lat": 41.9941334,
+  "Lon": -87.8756737
+ },
+ "rotselaar-belgium": {
+  "Lat": 50.9514713,
+  "Lon": 4.7094054
+ },
+ "saitama-japan": {
+  "Lat": 35.9754168,
+  "Lon": 139.4160114
+ },
+ "salem-germany": {
+  "Lat": 53.6563082,
+  "Lon": 10.8253152
+ },
+ "san_francisco-usa": {
+  "Lat": 37.8097487,
+  "Lon": -122.4104493
+ },
+ "san_isidro-argentina": {
+  "Lat": -34.4739792,
+  "Lon": -58.5264866
+ },
+ "san_jose-costa_rica": {
+  "Lat": 13.6550233,
+  "Lon": -88.9905563
+ },
+ "santiago-chile": {
+  "Lat": -33.4376995,
+  "Lon": -70.6510671
+ },
+ "sanya-china": {
+  "Lat": 18.2534658,
+  "Lon": 109.5034392
+ },
+ "sao_paulo-brazil": {
+  "Lat": -23.5506507,
+  "Lon": -46.6333824
+ },
+ "scheessel-germany": {
+  "Lat": 53.1667961,
+  "Lon": 9.4840648
+ },
+ "seattle-usa": {
+  "Lat": 47.6038321,
+  "Lon": -122.330062
+ },
+ "seoul-south_korea": {
+  "Lat": 37.5666791,
+  "Lon": 126.9782914
+ },
+ "seville-spain": {
+  "Lat": 37.3886303,
+  "Lon": -5.9953403
+ },
+ "sion-switzerland": {
+  "Lat": 46.2311749,
+  "Lon": 7.3588795
+ },
+ "skanderborg-denmark": {
+  "Lat": 56.0351868,
+  "Lon": 9.9317878
+ },
+ "sochaux-france": {
+  "Lat": 47.5138641,
+  "Lon": 6.8305344
+ },
+ "south_carolina-usa": {
+  "Lat": 33.6874388,
+  "Lon": -80.4363743
+ },
+ "st_gallen-switzerland": {
+  "Lat": 47.425618,
+  "Lon": 9.3762397
+ },
+ "st_louis-usa": {
+  "Lat": 38.6254063,
+  "Lon": -90.190009
+ },
+ "stockholm-sweden": {
+  "Lat": 59.3251172,
+  "Lon": 18.0710935
+ },
+ "sydney-australia": {
+  "Lat": -33.8698439,
+  "Lon": 151.2082848
+ },
+ "taipei-taiwan": {
+  "Lat": 25.0375198,
+  "Lon": 121.5636796
+ },
+ "texas-usa": {
+  "Lat": 31.2638905,
+  "Lon": -98.5456116
+ },
+ "toronto-canada": {
+  "Lat": 43.6534817,
+  "Lon": -79.3839347
+ },
+ "toronto-usa": {
+  "Lat": 41.9048584,
+  "Lon": -90.8640346
+ },
+ "turku-finland": {
+  "Lat": 60.4515932,
+  "Lon": 22.2669991
+ },
+ "uniondale-usa": {
+  "Lat": 40.7095827,
+  "Lon": -73.592341
+ },
+ "utah-usa": {
+  "Lat": 39.4225192,
+  "Lon": -111.714358
+ },
+ "vancouver-canada": {
+  "Lat": 49.2608724,
+  "Lon": -123.113952
+ },
+ "victoria-australia": {
+  "Lat": -36.5986096,
+  "Lon": 144.6780052
+ },
+ "vienna-austria": {
+  "Lat": 48.2083537,
+  "Lon": 16.3725042
+ },
+ "warsaw-poland": {
+  "Lat": 52.2319581,
+  "Lon": 21.0067249
+ },
+ "washington-usa": {
+  "Lat": 38.8950982,
+  "Lon": -77.0363849
+ },
+ "wellington-new_zealand": {
+  "Lat": -41.2887953,
+  "Lon": 174.7772114
+ },
+ "werchter-belgium": {
+  "Lat": 50.970584,
+  "Lon": 4.6937963
+ },
+ "west_melbourne-australia": {
+  "Lat": -37.808747,
+  "Lon": 144.9238207
+ },
+ "westcliff_on_sea-uk": {
+  "Lat": 51.5428858,
+  "Lon": 0.6859213
+ },
+ "willemstad-netherlands_antilles": {
+  "Lat": 12.11721,
+  "Lon": -68.91964
+ },
+ "windsor-canada": {
+  "Lat": 42.2858536,
+  "Lon": -82.9780695
+ },
+ "yogyakarta-indonesia": {
+  "Lat": -7.7953473,
+  "Lon": 110.3672845
+ },
+ "zaragoza-spain": {
+  "Lat": 41.6915847,
+  "Lon": -0.9101268
+ },
+ "zurich-switzerland": {
+  "Lat": 47.3744489,
+  "Lon": 8.5410422
+ }
+}

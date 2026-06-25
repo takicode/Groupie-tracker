@@ -5,6 +5,7 @@ import (
 	"html/template"
 	"groupie-tracker/internal/artist"
 	"net/http"
+	"encoding/json"
 	"strconv"
 	"log"
 	"errors"
@@ -20,7 +21,10 @@ func NewArtistHandler(templates *template.Template,service ArtistService) *Handl
 
 
 func(h *Handler)SingleArtist(w http.ResponseWriter, r *http.Request) {
-
+  	if r.Method != http.MethodGet {
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
 	q := r.URL.Query().Get("id")
 	id, err := strconv.Atoi(q)
 
@@ -29,31 +33,40 @@ func(h *Handler)SingleArtist(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	singleArtist, err  := h.service.ArtistByID(id)
+	artistInfo, err  := h.service.ArtistByID(id)
 
-	if err != nil {
-    render := NewRender(h.templates)
+		if err != nil {
+			render := NewRender(h.templates)
 
-    if errors.Is(err, artist.ErrArtistNotFound) {
-        render.Render404(w)
-        return
-    }
+			if errors.Is(err, artist.ErrArtistNotFound) {
+				render.Render404(w)
+				return
+			}
 
-    log.Printf("artist by id: %v", err)
-    render.Render500(w)
-    return
-}
+			log.Printf("Error fetching artist by id %d: %v",id, err)
+			render.Render500(w)
+			return
+		}
+
+    coordJSON, err := json.Marshal(artistInfo.Coordinates)
+	
+		if err != nil {
+			log.Printf("Error encoding coordinates for artist %d: %v", id, err)
+			http.Error(w, "failed to encode coordinates", http.StatusInternalServerError)
+			return
+		}
 
 	data := ArtistPageData{
-		singleArtist,
+		artistInfo.Artist,
+		template.JS(coordJSON),
 	}
 
 	err = h.templates.ExecuteTemplate(w, "artist.html", data)
 
 	if err != nil{
 		log.Printf("execute template: %v",err,)
-		// http.Error(w,"internal server error",http.StatusInternalServerError)
 		return
 	}
 	
 }
+
