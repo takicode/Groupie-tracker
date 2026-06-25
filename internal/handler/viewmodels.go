@@ -16,5 +16,5 @@ type HomePageData struct{
 
 type ArtistPageData struct{
 	artist.ArtistDetails
-	Coordinates template.JS
+	template.JS
 }

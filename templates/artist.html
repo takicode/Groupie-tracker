@@ -168,12 +168,12 @@
       maxZoom:19
     }).addTo(map)
     
-  const locations = JSON.parse('{{.Coordinates}}');
+  const locations ={{.Coordinates}}
   console.log(locations);
   
-  locations.forEach((location)=>{
-     L.marker([location.Lat, location.Long]).addTo(map).bindPopup(`${location.Name}<br>Date: ${location.Dates[0]}`)
-       markers.push([location.Lat, location.Long]);
+  Object.entries(locations).forEach(([location, coord])=>{
+     L.marker([coord.lat, coord.lon]).addTo(map).bindPopup(`${location}}`)
+       markers.push([coord.lat, coord.lon]);
   })
   if (markers.length > 0) {
     map.fitBounds(markers);

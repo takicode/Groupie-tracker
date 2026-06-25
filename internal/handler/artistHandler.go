@@ -34,6 +34,7 @@ func(h *Handler)SingleArtist(w http.ResponseWriter, r *http.Request) {
 	}
 
 	artistInfo, err  := h.service.ArtistByID(id)
+	
 
 		if err != nil {
 			render := NewRender(h.templates)
@@ -57,8 +58,8 @@ func(h *Handler)SingleArtist(w http.ResponseWriter, r *http.Request) {
 		}
 
 	data := ArtistPageData{
-		artistInfo.Artist,
-		template.JS(coordJSON),
+		artistInfo,
+		template.JS(string(coordJSON)),
 	}
 
 	err = h.templates.ExecuteTemplate(w, "artist.html", data)
